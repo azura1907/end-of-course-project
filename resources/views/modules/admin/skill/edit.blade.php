@@ -1,0 +1,1 @@
+<h1>Admin - Skill Edit</h1>
