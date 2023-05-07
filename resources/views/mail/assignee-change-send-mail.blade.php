@@ -17,7 +17,7 @@
     <p>Task Cost change from <strong>{{$dulieu['old_cost']}}</strong> to <strong>{{$dulieu['new_cost']}}</strong></p>
 @endif
 @if (isset($dulieu['new_desc']))
-    <p>Task Description change from <strong>{{$dulieu['old_description']}}</strong> to <strong>{{$dulieu['new_description']}}</strong></p>
+    <p>Task Description change from <strong>{{$dulieu['old_desc']}}</strong> to <strong>{{$dulieu['new_desc']}}</strong></p>
 @endif
 @if (isset($dulieu['new_status']))
     <p>Task Status change from <strong>{{$dulieu['old_status']}}</strong> to <strong>{{$dulieu['new_status']}}</strong></p>
