@@ -145,7 +145,21 @@
                             <input type="search" class="form-control" placeholder="Search" aria-label="search" aria-describedby="addon-wrapping">
                         </div>
                     </div>
-    
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    @if (Session::has('success'))
+                        <div class="alert alert-success alert-block">
+                            <strong>{{ Session::get('success') }}</strong>
+                        </div>
+                    @endif
                 </div>
             </nav>
         </div>

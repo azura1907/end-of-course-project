@@ -437,11 +437,11 @@
                                         <div class="row">
                                         <div class="col">
                                             <label for="datepickerded" class="form-label">Task Start Date</label>
-                                            <input type="date" class="form-control" id="datepickerded" name="task_start_date">
+                                            <input type="date" class="form-control" name="task_start_date">
                                         </div>
                                         <div class="col">
                                             <label for="datepickerdedone" class="form-label">Task End Date</label>
-                                            <input type="date" class="form-control" id="datepickerdedone" name="task_end_date">
+                                            <input type="date" class="form-control" name="task_end_date">
                                         </div>
                                         </div>
                                     </form>
@@ -507,11 +507,11 @@
                                         <div class="row">
                                         <div class="col">
                                             <label for="datepickerded" class="form-label">Task Start Date</label>
-                                            <input type="date" class="form-control" id="datepickerded" value={{$task->task_start_date}}>
+                                            <input type="date" class="form-control" id="datepickerded" name="task_start_date" value={{$task->task_start_date}}>
                                         </div>
                                         <div class="col">
                                             <label for="datepickerdedone" class="form-label">Task End Date</label>
-                                            <input type="date" class="form-control" id="datepickerdedone">
+                                            <input type="date" class="form-control" name="task_end_date" id="datepickerdedone" value={{$task->task_end_date}}>
                                         </div>
                                         </div>
                                     </form>
