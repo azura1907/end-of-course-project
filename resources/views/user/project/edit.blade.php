@@ -12,7 +12,6 @@
 </head>
 <body>
     <div class="container">
-    <h1>User - Project Edit</h1>
     <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
