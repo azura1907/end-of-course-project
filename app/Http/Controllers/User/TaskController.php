@@ -127,34 +127,39 @@ class TaskController extends Controller
         $emaildata['name'] = $assigneeFullname->fullname;
         $emaildata['from'] = 'Task Management App';
         $emaildata['assigned_by'] = $assignedByFullname->fullname;
-        $emaildata['oldAssignee'] = $oldAssgineeFullname->fullname;
         $emaildata['task_name'] = $data['task_name'];
-            
 
         if ($taskAssigneeDiff !== 0) {
+            $emaildata['old_assignee'] = $oldAssgineeFullname->fullname;
             $emaildata['new_assignee'] = $assigneeFullname->fullname;
             Mail::to($assigneeEmail)->send(new SendTaskNoti($emaildata));
         }
         if ($taskNameDiff !== 0) {
+            $emaildata['old_task_name'] = $oldTaskData->task_name;
             $emaildata['new_task_name'] = $data['task_name'];
         }
         if ($taskStartDateDiff !== 0) {
+            $emaildata['old_start_date'] = $oldTaskData->task_start_date;
             $emaildata['new_start_date'] = $data['task_start_date'];
         }
         if ($taskEndDateDiff !== 0) {
+            $emaildata['old_end_date'] = $oldTaskData->task_end_date;
             $emaildata['new_end_date'] = $data['task_end_date'];
         }
         if ($taskCostDiff !== 0) {
+            $emaildata['old_cost'] = $oldTaskData->task_estimated_cost;
             $emaildata['new_cost'] = $data['task_estimated_cost'];
         }
         if ($taskDescDiff !== 0) {
+            $emaildata['old_desc'] = $oldTaskData->task_description;
             $emaildata['new_desc'] = $data['task_description'];
         }
         if ($taskStatusDiff !== 0) {
+            $emaildata['old_status'] = $oldTaskData->task_status;
             $emaildata['new_status'] = $data['task_status'];
         }
 
-        dd($emaildata);
+        // dd($emaildata);
         Mail::to($oldAssgineeEmail->email)->send(new SendAssigneeUpdateNoti($emaildata));
 
         return redirect()->route('user.project.index')->with('success', 'Task successfully updated');
