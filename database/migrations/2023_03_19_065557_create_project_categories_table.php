@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('project_categories', function (Blueprint $table) {
             $table->id('category_id');
             $table->string('category_name');
+            $table->string('category_detail');
+            $table->tinyInteger('status');
+            $table->tinyInteger('user_id');
             $table->timestamps();
         });
     }

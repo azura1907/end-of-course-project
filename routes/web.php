@@ -4,10 +4,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProjectCategoryController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\SkillController;
+use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\RoleController;
-
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\User\UserEmployeeController;
 use App\Http\Controllers\User\ProjectController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\User\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +27,17 @@ Route::get('/', function () {
     return view('master');
 });
 
-Route::prefix('modules')->group(function(){
+Route::prefix('dashboard')->name('dashboard.')->middleware('checkLogin')->group(function() {
+    Route::get('employee', [DashboardController::class, 'employee'])->name('employee');
+    Route::get('project', [DashboardController::class, 'project'])->name('project');
+});
+
+Route::prefix('auth')->name('auth.')->group(function () {
+    Route::get('login', [LoginController::class, 'viewLogin'])->name('viewLogin');
+    Route::post('login', [LoginController::class, 'postLogin'])->name('postLogin');
+    Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+});
+
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::prefix('role')->controller(RoleController::class)->name('role.')->group(function () {
             Route::get('index', 'index')->name('index');
@@ -48,26 +61,35 @@ Route::prefix('modules')->group(function(){
 
         Route::prefix('project-category')->controller(ProjectCategoryController::class)->name('project-category.')->group(function () {
             Route::get('index', 'index')->name('index');
-            Route::get('detail/{id}', 'detail')->name('detail');
             Route::get('create','create')->name('create');
             Route::post('store','store')->name('store');
             Route::get('edit/{id}', 'edit')->name('edit');
             Route::post('update/{id}','update')->name('update');
             Route::get('destroy/{id}', 'destroy')->name('destroy');
         });
+
+        Route::prefix('department')->controller(DepartmentController::class)->name('department.')->group(function () {
+            Route::get('index', 'index')->name('index');
+            Route::get('create','create')->name('create');
+            Route::post('store','store')->name('store');
+            Route::get('edit/{id}', 'edit')->name('edit');
+            Route::post('update/{id}','update')->name('update');
+            Route::get('destroy/{id}', 'destroy')->name('destroy');
+        });
+
         Route::prefix('employee')->controller(EmployeeController::class)->name('employee.')->group(function () {
             Route::get('index', 'index')->name('index');
             Route::get('detail/{id}', 'detail')->name('detail');
             Route::get('create','create')->name('create');
             Route::post('store','store')->name('store');
             Route::get('edit/{id}', 'edit')->name('edit');
+            Route::get('info-edit/{id}', 'infoEdit')->name('infoEdit');
+            Route::post('storeDetailInfo', 'storeDetailInfo')->name('storeDetailInfo');
             Route::post('update/{id}','update')->name('update');
             Route::get('destroy/{id}', 'destroy')->name('destroy');
         });
     });
-});
 
-Route::prefix('modules')->group(function(){
     Route::prefix('user')->name('user.')->group(function () {
         Route::prefix('project')->controller(ProjectController::class)->name('project.')->group(function () {
             Route::get('index', 'index')->name('index');
@@ -78,11 +100,21 @@ Route::prefix('modules')->group(function(){
             Route::post('update/{id}','update')->name('update');
             Route::get('destroy/{id}', 'destroy')->name('destroy');
         });
+
         Route::prefix('employee')->controller(UserEmployeeController::class)->name('employee.')->group(function () {
             Route::get('index', 'index')->name('index');
             Route::get('detail/{id}', 'detail')->name('detail');
             Route::get('edit/{id}', 'edit')->name('edit');
             Route::post('update/{id}','update')->name('update');
         });
+
+        Route::prefix('task')->controller(TaskController::class)->name('task.')->group(function () {
+            Route::get('index', 'index')->name('index');
+            Route::get('create/{project_id}','create')->name('create');
+            Route::post('store','store')->name('store');
+            Route::get('detail/{id}', 'detail')->name('detail');
+            Route::get('edit/{id}', 'edit')->name('edit');
+            Route::post('update/{id}','update')->name('update');
+            Route::get('destroy/{id}', 'destroy')->name('destroy');
+        });
     });
-});

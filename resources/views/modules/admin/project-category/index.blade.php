@@ -1,1 +1,0 @@
-<h1>Admin - Project Category Index</h1>

@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('costs_tracker', function (Blueprint $table) {
             $table->unsignedBigInteger('project_id');
             $table->foreign('project_id')->references('project_id')->on('projects');
-            $table->unsignedBigInteger('employee_id');
-            $table->foreign('employee_id')->references('employee_id')->on('employees');
+            $table->unsignedBigInteger('id');
+            $table->foreign('id')->references('id')->on('employees');
             $table->unsignedTinyInteger('project_phase');
             $table->integer('assigned_cost');
             $table->timestamps();

@@ -1,1 +1,0 @@
-<h1>Admin - Skill Index</h1>
