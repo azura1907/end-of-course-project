@@ -65,7 +65,6 @@ class EmployeeController extends Controller
                 DB::table('employee_skills')->insert($skillData);
             }
         }
-
         return redirect()->route('admin.employee.index')->with('success', 'Employee successfully created');
     }
 

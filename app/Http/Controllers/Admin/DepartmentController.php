@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Department\StoreRequest;
 use App\Http\Requests\Admin\Department\UpdateRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class DepartmentController extends Controller
@@ -22,7 +23,7 @@ class DepartmentController extends Controller
     public function store(StoreRequest $request) {
         $data = $request->except('_token');
         $data['created_at'] = new \DateTime;
-        $data['user_id'] = 1;
+        $data['user_id'] = Auth::user()->id;
 
         DB::table('departments')->insert($data);
 
@@ -39,14 +40,13 @@ class DepartmentController extends Controller
     {
         $data = $request->except('_token');
         $data['updated_at'] = new \DateTime;
-        $data['user_id'] = 1;
         
         DB::table('departments')->where('department_id', $id)->update($data);
 
         return redirect()->route('admin.department.index')->with('success', 'Department was successfully updated');
     }
 
-    public function destroy($id = '')
+    public function destroy($id)
     {
         DB::table('departments')->where('department_id', $id)->delete();
 
