@@ -1,20 +1,16 @@
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>:: My-Task:: Employee Dashboard </title>
     <link rel="icon" href="theme/dist/favicon.ico" type="image/x-icon"> <!-- Favicon-->
-    <!-- project css file  -->
-    <link rel="stylesheet" href="theme/dist/assets/css/my-task.style.min.css">
 </head>
 <body>
 <div id="mytask-layout" class="theme-indigo">
-
     <!-- Side bar -->
-    <div class="sidebar px-4 py-4 py-md-5 me-0">
+    {{-- <div class="sidebar px-4 py-4 py-md-5 me-0">
         <div class="d-flex flex-column h-100">
             <a href="theme/dist/index.html" class="mb-0 brand-icon">
                 <span class="logo-icon">
@@ -34,7 +30,7 @@
                         <i class="icofont-home fs-5"></i> <span>Dashboard</span> <span class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
                     <!-- Menu: Sub menu ul -->
                     <ul class="sub-menu collapse show" id="dashboard-Components">
-                        <li><a class="ms-link active" href="{{route('dashboard.employee')}}"> <span>Hr Dashboard</span></a></li>
+                        <li><a class="ms-link" href="{{route('dashboard.employee')}}"> <span>Hr Dashboard</span></a></li>
                         <li><a class="ms-link" href="{{route('dashboard.project')}}"> <span>Project Dashboard</span></a></li>
                     </ul>
                 </li>
@@ -93,10 +89,10 @@
                 </button>
             </a>
         </div>
-    </div>
+    </div> --}}
     <div class="main px-lg-4 px-md-4">
         <!-- Body: Header -->
-        <div class="header">
+        {{-- <div class="header">
             <nav class="navbar py-4">
                 <div class="container-xxl">
                     <!-- header rightbar icon -->
@@ -145,24 +141,30 @@
                             <input type="search" class="form-control" placeholder="Search" aria-label="search" aria-describedby="addon-wrapping">
                         </div>
                     </div>
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    @if (Session::has('success'))
-                        <div class="alert alert-success alert-block">
-                            <strong>{{ Session::get('success') }}</strong>
-                        </div>
-                    @endif
+                   
                 </div>
             </nav>
+        </div> --}}
+
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
+        @endif
+
+        @if (Session::has('success'))
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
         <!-- Dashboard -->
         @yield('project-dashboard')
         @yield('employee-dashboard')
@@ -189,17 +191,9 @@
         @yield('user-employee-index')
         @yield('user-project-index')
         @yield('user-project-create')
+        @yield('user-project-edit')
         @yield('user-project-detail')
         @yield('user-employee-detail')
     </div>
-<!-- Jquery Core Js -->
-<script src="theme/dist/assets/bundles/libscripts.bundle.js"></script>
-
-<!-- Plugin Js-->
-<script src="theme/dist/assets/bundles/apexcharts.bundle.js"></script>
-
-<!-- Jquery Page Js -->
-<script src="{{ asset('/theme/js/template.js') }}"></script>
-<script src="{{ asset('/theme/js/page/hr.js') }}"></script>
 </body>
 </html> 

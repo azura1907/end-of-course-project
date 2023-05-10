@@ -22,7 +22,17 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'department_name' => 'required|unique:departments,department_name',
+            'status' => 'required:skills,status'
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'department_name.required' => 'Please input department name',
+            'department_name.unique' => 'This department name is already exists',
+            'status.required' => 'Please choose department status'
         ];
     }
 }

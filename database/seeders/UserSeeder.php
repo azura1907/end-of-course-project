@@ -23,7 +23,8 @@ class UserSeeder extends Seeder
                     'fullname' => 'Admin'. $i . 'Green',
                     'entry_date' => '2023/05/03',
                     'department' => rand(1,2),
-                    'role' => rand(1,2)
+                    'role' => rand(1,2),
+                    'view_right' => rand(1,2,3),
                 ];
             }
     

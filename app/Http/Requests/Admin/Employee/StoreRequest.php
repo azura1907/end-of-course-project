@@ -22,7 +22,22 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'email' => 'required|unique:employees,email',
+            // 'password' => 'required|min:8|confirmed',
+            'entry_date' => 'required:employees,entry_date',
+            'fullname' => 'required:employees,fullname',
+            'skills' => 'required:employee_skills,skills'
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'Please input email',
+            'email.unique' => 'This email is already exists',
+            'email.email' => 'Wrong email format. Please check and input again.',
+            'password.required' => 'Please input password',
+            // 'password.confirmed' => 'Password and confirm password are not match. Please check and input again.'
         ];
     }
 }

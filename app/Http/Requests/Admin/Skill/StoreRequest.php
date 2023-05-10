@@ -22,7 +22,17 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'skill_name' => 'required|unique:skills,skill_name',
+            'status' => 'required:skills,status'
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'skill_name.required' => 'Please input skill name',
+            'skill_name.unique' => 'This skill name is already exists',
+            'status.required' => 'Please choose skill status'
         ];
     }
 }

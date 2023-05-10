@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\User\UserEmployeeController;
 use App\Http\Controllers\User\ProjectController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\User\TaskController;
 use App\Http\Controllers\SendMailController;
 
@@ -26,12 +27,14 @@ use App\Http\Controllers\SendMailController;
 */
 
 Route::get('/', function () {
-    return view('master');
+    return view('auth/login');
 });
+
+Route::get('unauthorized', [ErrorController::class, 'unauthorized'])->name('unauthorized');
 
 Route::get('send-mail', [SendMailController::class, 'send'])->name('send');
 
-Route::prefix('dashboard')->name('dashboard.')->middleware('checkLogin')->group(function() {
+Route::prefix('dashboard')->name('dashboard.')->middleware(['checkLogin'])->group(function() {
     Route::get('employee', [DashboardController::class, 'employee'])->name('employee');
     Route::get('project', [DashboardController::class, 'project'])->name('project');
 });
@@ -42,7 +45,7 @@ Route::prefix('auth')->name('auth.')->group(function () {
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 });
 
-    Route::prefix('admin')->name('admin.')->middleware('checkLogin')->group(function () {
+    Route::prefix('admin')->name('admin.')->middleware(['checkLogin','checkRole'])->group(function () {
         Route::prefix('role')->controller(RoleController::class)->name('role.')->group(function () {
             Route::get('index', 'index')->name('index');
             Route::get('detail/{id}', 'detail')->name('detail');
@@ -53,7 +56,7 @@ Route::prefix('auth')->name('auth.')->group(function () {
             Route::get('destroy/{id}', 'destroy')->name('destroy');
         });
 
-        Route::prefix('skill')->controller(SkillController::class)->name('skill.')->middleware('checkLogin')->group(function () {
+        Route::prefix('skill')->controller(SkillController::class)->name('skill.')->middleware(['checkLogin','checkRole'])->group(function () {
             Route::get('index', 'index')->name('index');
             Route::get('detail/{id}', 'detail')->name('detail');
             Route::get('create','create')->name('create');
@@ -63,7 +66,7 @@ Route::prefix('auth')->name('auth.')->group(function () {
             Route::get('destroy/{id}', 'destroy')->name('destroy');
         });
 
-        Route::prefix('project-category')->controller(ProjectCategoryController::class)->name('project-category.')->middleware('checkLogin')->group(function () {
+        Route::prefix('project-category')->controller(ProjectCategoryController::class)->name('project-category.')->middleware(['checkLogin','checkRole'])->group(function () {
             Route::get('index', 'index')->name('index');
             Route::get('create','create')->name('create');
             Route::post('store','store')->name('store');
@@ -72,7 +75,7 @@ Route::prefix('auth')->name('auth.')->group(function () {
             Route::get('destroy/{id}', 'destroy')->name('destroy');
         });
 
-        Route::prefix('department')->controller(DepartmentController::class)->name('department.')->middleware('checkLogin')->group(function () {
+        Route::prefix('department')->controller(DepartmentController::class)->name('department.')->middleware(['checkLogin','checkRole'])->group(function () {
             Route::get('index', 'index')->name('index');
             Route::get('create','create')->name('create');
             Route::post('store','store')->name('store');
@@ -81,7 +84,7 @@ Route::prefix('auth')->name('auth.')->group(function () {
             Route::get('destroy/{id}', 'destroy')->name('destroy');
         });
 
-        Route::prefix('employee')->controller(EmployeeController::class)->name('employee.')->middleware('checkLogin')->group(function () {
+        Route::prefix('employee')->controller(EmployeeController::class)->name('employee.')->middleware(['checkLogin','checkRole'])->group(function () {
             Route::get('index', 'index')->name('index');
             Route::get('detail/{id}', 'detail')->name('detail');
             Route::get('create','create')->name('create');
@@ -97,28 +100,28 @@ Route::prefix('auth')->name('auth.')->group(function () {
     Route::prefix('user')->name('user.')->group(function () {
         Route::prefix('project')->controller(ProjectController::class)->name('project.')->middleware('checkLogin')->group(function () {
             Route::get('index', 'index')->name('index');
-            Route::get('create','create')->name('create');
-            Route::post('store','store')->name('store');
+            Route::get('create','create')->middleware('checkRole')->name('create');
+            Route::post('store','store')->middleware('checkRole')->name('store');
             Route::get('detail/{id}', 'detail')->name('detail');
-            Route::get('edit/{id}', 'edit')->name('edit');
-            Route::post('update/{id}','update')->name('update');
-            Route::get('destroy/{id}', 'destroy')->name('destroy');
+            Route::get('edit/{id}', 'edit')->middleware('checkRole')->name('edit');
+            Route::post('update/{id}','update')->middleware('checkRole')->name('update');
+            Route::get('destroy/{id}', 'destroy')->middleware('checkRole')->name('destroy');
         });
 
         Route::prefix('employee')->controller(UserEmployeeController::class)->name('employee.')->middleware('checkLogin')->group(function () {
             Route::get('index', 'index')->name('index');
             Route::get('detail/{id}', 'detail')->name('detail');
-            Route::get('edit/{id}', 'edit')->name('edit');
-            Route::post('update/{id}','update')->name('update');
+            Route::get('edit/{id}', 'edit')->middleware('checkRole')->name('edit');
+            Route::post('update/{id}','update')->middleware('checkRole')->name('update');
         });
 
         Route::prefix('task')->controller(TaskController::class)->name('task.')->middleware('checkLogin')->group(function () {
             Route::get('index', 'index')->name('index');
-            Route::get('create/{project_id}','create')->name('create');
-            Route::post('store','store')->name('store');
+            Route::get('create/{project_id}','create')->middleware('checkRole')->name('create');
+            Route::post('store','store')->middleware('checkRole')->name('store');
             Route::get('detail/{id}', 'detail')->name('detail');
             Route::get('edit/{id}', 'edit')->name('edit');
             Route::post('update/{id}','update')->name('update');
-            Route::get('destroy/{id}', 'destroy')->name('destroy');
+            Route::get('destroy/{id}', 'destroy')->middleware('checkRole')->name('destroy');
         });
     });

@@ -116,8 +116,20 @@ class ProjectController extends Controller
     public function edit($project_id){
 
         $project = DB::table('projects')->where('project_id', $project_id)->first();
-
-        return view('user.project.edit', ['project' => $project]);
+        $roles = DB::table('roles')->orderBy('created_at', 'DESC')->get();
+        $skills = DB::table('skills')->orderBy('created_at', 'DESC')->get();
+        $departments = DB::table('departments')->orderBy('created_at', 'DESC')->get();
+        $project_categories = DB::table('project_categories')->orderBy('created_at', 'DESC')->get();
+        $employees = DB::table('employees')->orderBy('created_at', 'DESC')->get();
+        
+        return view('user.project.edit', [
+            'project' => $project,
+            'roles' => $roles,
+            'skills' => $skills,
+            'project_categories' => $project_categories,
+            'employees' => $employees,
+            'departments' => $departments
+        ]);
     }
 
     public function update(UpdateRequest $request, $id) {

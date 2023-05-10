@@ -19,10 +19,12 @@ return new class extends Migration
             $table->tinyInteger('status')->default(1)->comment("1: Active & 2: Block");
             $table->string('fullname');
             $table->dateTime('entry_date');
-            $table->unsignedBigInteger('department');
+            $table->tinyInteger('department');
             $table->foreign('department')->references('department_id')->on('departments');
-            $table->unsignedBigInteger('role');
+            $table->tinyInteger('role');
             $table->foreign('role')->references('role_id')->on('roles');
+            $table->tinyInteger('view_right');
+            $table->tinyInteger('created_by');
             $table->rememberToken();
             $table->timestamps();
         });

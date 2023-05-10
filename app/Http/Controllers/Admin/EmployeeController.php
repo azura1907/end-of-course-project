@@ -40,25 +40,28 @@ class EmployeeController extends Controller
         $data = $request->except('_token','skills');
         $data['password'] = bcrypt($request->password);
         $data['created_at'] = new \DateTime;
+        $data['created_by'] = Auth::user()->id;
+
         $employee_name = $request->only('fullname');
         $skills = $request->only('skills');
-        // $data['user_id'] = Auth::user()->id;
+        $role = $request->only('role');
+        $employee_view_right = DB::table('roles')->select('view_right')->where('role_id',$role)->first();
 
-        // dd($skills[1]);
+        $data['view_right'] = $employee_view_right->view_right;
+        // dd($data);
+
+        //create new employee
         DB::table('employees')->insert($data);
         
+        //get target employee for skill updating
         $target_emp = DB::table('employees')->where('fullname', $employee_name)->get()->first();
-
         foreach ($skills as $skill) {
             for ($i=0; $i < count($skill); $i++) 
             {
                 $skillData = [];
                 $skillData['employee_id'] = $target_emp->id;
-                // dd($skill[$i]);
-                // dd($skillData);
                 $skillData['skill_id'] = $skill[$i];
                 $skillData['created_at'] = new DateTime();
-                // dd($skillData);
                 DB::table('employee_skills')->insert($skillData);
             }
         }

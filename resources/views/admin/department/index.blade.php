@@ -41,7 +41,6 @@
                                         <th>Department Id</th>
                                         <th>Department Name</th>
                                         <th>Detail</th>
-                                        <th>Director</th>
                                         <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
@@ -57,10 +56,7 @@
                                        </td>
                                        <td>
                                             <p>{{$department->department_detail}}</p>
-                                       </td>
-                                       <td>
-                                            <p>{{$department->department_director}}</p>
-                                        </td>                                       
+                                       </td>                                  
                                        <td>
                                             <p>{{$department->status == 1 ? 'Active' : 'Deactived'}}</p>
                                        </td>

@@ -22,7 +22,17 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'role_name' => 'required|unique:roles,role_name',
+            'status' => 'required:roles,status'
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'role_name.required' => 'Please input role name',
+            'role_name.unique' => 'This role name is already exists',
+            'status.required' => 'Please choose role status'
         ];
     }
 }

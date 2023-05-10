@@ -71,7 +71,7 @@ class TaskController extends Controller
         $emaildata = [];
         $emaildata['name'] = $assigneeFullname->fullname;
         $emaildata['from'] = 'Task Management App';
-        $emaildata['assigned_by'] = $assignedByFullname->fullname;
+        $emaildata['assigned_by'] = $assignedByFullname;
 
         // dd($emaildata);
 
@@ -126,7 +126,7 @@ class TaskController extends Controller
         $emaildata = [];
         $emaildata['name'] = $assigneeFullname->fullname;
         $emaildata['from'] = 'Task Management App';
-        $emaildata['assigned_by'] = $assignedByFullname->fullname;
+        $emaildata['assigned_by'] = $assignedByFullname;
         $emaildata['task_name'] = $data['task_name'];
 
         if ($taskAssigneeDiff !== 0) {

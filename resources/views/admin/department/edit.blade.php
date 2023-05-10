@@ -38,12 +38,6 @@
                                 value="{{ old('department_detail', $department->department_detail) }}"
                                 class="form-control">
                                 <br />
-                                <label class="form-label"><strong>Department Director</strong></label>
-                                <input type="text" id="department_director" name="department_director" 
-                                value="{{ old('department_director', $department->department_director) }}"
-                                class="form-control">
-                                <label class="form-label mt-2"><strong>Status</strong></label>
-                                <br />
                                     <td>
                                         <input type="radio" name="status" value="1" {{ old('status', 1) == 1 ? 'checked' : '' }}> Active
                                         <input type="radio" name="status" value="2" {{ old('status') == 2 ? 'checked' : '' }}> Deactive

@@ -1,5 +1,5 @@
 <h1>Hello {{$dulieu['old_assignee']}}</h1>
-<p>This is a test mail sent from {{$dulieu['from']}}</p>
+<p>This is a notification email sent from {{$dulieu['from']}}</p>
 <p>{{$dulieu['task_name']}} task's assignee has been change from you to {{$dulieu['new_assignee']}}. Please be informed!</p>
 @if (isset($dulieu['new_task_name']))
     <p>Task name change from <strong>{{$dulieu['task_name']}}</strong> to <strong>{{$dulieu['new_task_name']}}</strong></p>

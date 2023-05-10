@@ -57,7 +57,9 @@
                                                             <h6 class="mb-0 fw-bold  fs-6  mb-2">{{$targetproject->project_title}}</h6>
                                                         </div>
                                                         <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                            @if (Auth::user()->role == 2)
                                                             <button type="button" class="btn btn-dark btn-set-task w-sm-100" data-bs-toggle="modal" data-bs-target="#taskcreate-{{$targetproject->project_id}}"><i class="icofont-plus-circle me-2 fs-6"></i>Add Task</button>
+                                                            @endif
                                                             {{-- <a href="{{route('user.task.create', ['project_id' => $project->project_id]) }}"><button type="button" class="btn btn-outline-secondary"><i class="icofont-plus-circle me-2 fs-6"></i>Add Task</button></a> --}}
                                                         <br>
                                                             <a href="{{route('user.project.edit', ['id' => $targetproject->project_id]) }}"><button type="button" class="btn btn-outline-secondary"><i class="icofont-edit text-success"></i>Edit Project</button></a>
@@ -380,11 +382,15 @@
                                                             <p>{{$task->task_estimated_cost}}</p>
                                                     </td>
                                                     <td>
-                                                        <select name="task_status" id="task_status">
-                                                            <option value="{{$task->task_status}} {{$task->task_status == 1 ? 'selected' : ''}}">New</option>
-                                                            <option value="{{$task->task_status}} {{$task->task_status == 2 ? 'selected' : ''}}">Doing</option>
-                                                            <option value="{{$task->task_status}} {{$task->task_status == 3 ? 'selected' : ''}}">Done</option>
-                                                        </select>
+                                                        @if ($task->task_status == 1)
+                                                            <span class="badge bg-warning text-dark">New</span>
+                                                        @endif
+                                                        @if ($task->task_status == 2)
+                                                            <span class="badge bg-info">Doing</span>
+                                                        @endif
+                                                        @if ($task->task_status == 3)
+                                                            <span class="badge bg-success">Done</span>
+                                                        @endif
                                                     </td>
                                                     <td>
                                                         <button type="button" class="btn btn-dark btn-set-task w-sm-100"
@@ -473,7 +479,6 @@
             </div>
             @endforeach
             
-
             <!-- Edit task modal-->
             @foreach ($tasks as $task)
             <div class="modal fade" id="taskedit-{{$task->task_id}}" tabindex="-1" aria-hidden="true" >
@@ -551,19 +556,19 @@
             </div>
             @endforeach
 
-
             <!-- Modal  Remove Task-->
             @foreach ($tasks as $task)
             <div class="modal fade" id="removetask-{{$task->task_id}}" tabindex="-1"  aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title  fw-bold" id="dremovetaskLabel"> Remove Task Id {{$task->task_id}} From Task List?</h5>
+                        <h5 class="modal-title  fw-bold" id="dremovetaskLabel"> Remove Task</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body justify-content-center flex-column d-flex">
                         <i class="icofont-ui-rate-remove text-danger display-2 text-center mt-2"></i>
-                        <p class="mt-4 fs-5 text-center">You can Remove only From Task</p>
+                        <p class="mt-4 fs-5 text-center">Do you want to remove
+                        <strong>"{{$task->task_name}}"</strong> from Task List?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -597,6 +602,9 @@
             ]
         });
     });
+ </script>
+ <script>
+   
  </script>
 </body>
 </html>
