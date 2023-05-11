@@ -71,16 +71,26 @@ class EmployeeController extends Controller
     public function edit($id){
         $departments = DB::table('departments')->orderBy('created_at', 'DESC')->get();
         $roles = DB::table('roles')->orderBy('created_at', 'DESC')->get();
-        $skills = DB::table('skills')->orderBy('created_at', 'DESC')->get();
-        // $employee = DB::table('employees')->join('skills','employees.skill', '=', 'skills.skill_id')
-        // ->select('employees.*','skills.skill_name')->where('employees.id',$id)->first();
+        $empSkills = DB::table('employee_skills')->join('skills', 'employee_skills.skill_id','=','skills.skill_id')->where('employee_id',$id)->get();
+        $skillsTableData = DB::table('skills')->orderBy('created_at', 'DESC')->get();
+        $skillData = [];
+            for ($i=0; $i < count($empSkills); $i++) 
+            {
+                array_push($skillData,$empSkills[$i]->skill_id);
+            }
+
+        // $targetSkills = $skillData->toArray();
+        $employee = DB::table('employees')->where('employees.id',$id)->first();
+
+        // dd($skillData);
 
         return view('admin.employee.edit',
         [
-            // 'employee' => $employee,
+            'employee' => $employee,
             'departments' => $departments,
             'roles' => $roles,
-            'skills' => $skills
+            'skills' => $skillsTableData,
+            'oldSkills' => $skillData
         ]
         );
     }

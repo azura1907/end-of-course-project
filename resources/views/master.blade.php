@@ -173,6 +173,7 @@
         @yield('project-category-index')
         @yield('admin-employee-index')
         @yield('employee-create')
+        @yield('employee-edit')
         @yield('employee-info-edit')
         @yield('admin-employee-detail')
         @yield('project-category-create')
