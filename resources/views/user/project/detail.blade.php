@@ -5,243 +5,240 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Project Detail</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
+    <title>Employee Info Edit</title>
     <!-- project css file  -->
     <link rel="stylesheet" href="{{asset('theme/dist/assets/css/my-task.style.min.css')}}">
-    <link rel="stylesheet" href="{{asset('theme/dist/assets/plugin/datatables/responsive.dataTables.min.css')}}">
-    <link rel="stylesheet" href="{{asset('theme/dist/assets/plugin/datatables/dataTables.bootstrap5.min.css')}}">
 </head>
 <body>
+    @section('user-project-detail')
     <div id="mytask-layout" class="theme-indigo">
-        @section('user-project-detail')
-        <div class="main px-lg-4 px-md-4">
-            <div class="container">
-            <!-- Body: Header -->
-                <div class="header">
-                    <nav class="navbar py-4">
-                        <div class="container-xxl">
-            
-                            <!-- header rightbar icon -->
-                            <div class="h-right d-flex align-items-center mr-5 mr-lg-0 order-1">
-                                <div class="d-flex">
-                                    <a class="nav-link text-primary collapsed" href="help.html" title="Get Help">
-                                        <i class="icofont-info-square fs-5"></i>
-                                    </a>
-                                </div>
-                                <div class="dropdown notifications zindex-popover">
-                                    <a class="nav-link dropdown-toggle pulse" href="#" role="button" data-bs-toggle="dropdown">
-                                        <i class="icofont-alarm fs-5"></i>
-                                        <span class="pulse-ring"></span>
-                                    </a>
-                                    <div id="NotificationsDiv" class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-sm-end p-0 m-0">
-                                        <div class="card border-0 w380">
-                                            <div class="card-header border-0 p-3">
-                                                <h5 class="mb-0 font-weight-light d-flex justify-content-between">
-                                                    <span>Notifications</span>
-                                                    <span class="badge text-white">11</span>
-                                                </h5>
-                                            </div>
-                                            <div class="tab-content card-body">
-                                                <div class="tab-pane fade show active">
-                                                    <ul class="list-unstyled list mb-0">
-                                                        <li class="py-2 mb-1 border-bottom">
-                                                            <a href="javascript:void(0);" class="d-flex">
-                                                                <img class="avatar rounded-circle" src="{{asset('theme/dist/assets/images/xs/avatar1.jpg')}}" alt="">
-                                                                <div class="flex-fill ms-2">
-                                                                    <p class="d-flex justify-content-between mb-0 "><span class="font-weight-bold">Dylan Hunter</span> <small>2MIN</small></p>
-                                                                    <span class="">Added  2021-02-19 my-Task ui/ux Design <span class="badge bg-success">Review</span></span>
-                                                                </div>
-                                                            </a>
-                                                        </li>
-                                                        <li class="py-2 mb-1 border-bottom">
-                                                            <a href="javascript:void(0);" class="d-flex">
-                                                                <div class="avatar rounded-circle no-thumbnail">DF</div>
-                                                                <div class="flex-fill ms-2">
-                                                                    <p class="d-flex justify-content-between mb-0 "><span class="font-weight-bold">Diane Fisher</span> <small>13MIN</small></p>
-                                                                    <span class="">Task added Get Started with Fast Cad project</span>
-                                                                </div>
-                                                            </a>
-                                                        </li>
-                                                        <li class="py-2 mb-1 border-bottom">
-                                                            <a href="javascript:void(0);" class="d-flex">
-                                                                <img class="avatar rounded-circle" src="{{asset('theme/dist/assets/images/xs/avatar3.jpg')}}" alt="">
-                                                                <div class="flex-fill ms-2">
-                                                                    <p class="d-flex justify-content-between mb-0 "><span class="font-weight-bold">Andrea Gill</span> <small>1HR</small></p>
-                                                                    <span class="">Quality Assurance Task Completed</span>
-                                                                </div>
-                                                            </a>
-                                                        </li>
-                                                        <li class="py-2 mb-1 border-bottom">
-                                                            <a href="javascript:void(0);" class="d-flex">
-                                                                <img class="avatar rounded-circle" src="{{asset('theme/dist/assets/images/xs/avatar5.jpg')}}" alt="">
-                                                                <div class="flex-fill ms-2">
-                                                                    <p class="d-flex justify-content-between mb-0 "><span class="font-weight-bold">Diane Fisher</span> <small>13MIN</small></p>
-                                                                    <span class="">Add New Project for App Developemnt</span>
-                                                                </div>
-                                                            </a>
-                                                        </li>
-                                                        <li class="py-2 mb-1 border-bottom">
-                                                            <a href="javascript:void(0);" class="d-flex">
-                                                                <img class="avatar rounded-circle" src="{{asset('theme/dist/assets/images/xs/avatar6.jpg')}}" alt="">
-                                                                <div class="flex-fill ms-2">
-                                                                    <p class="d-flex justify-content-between mb-0 "><span class="font-weight-bold">Andrea Gill</span> <small>1HR</small></p>
-                                                                    <span class="">Add Timesheet For Rhinestone project</span>
-                                                                </div>
-                                                            </a>
-                                                        </li>
-                                                        <li class="py-2">
-                                                            <a href="javascript:void(0);" class="d-flex">
-                                                                <img class="avatar rounded-circle" src="{{asset('theme/dist/assets/images/xs/avatar7.jpg')}}" alt="">
-                                                                <div class="flex-fill ms-2">
-                                                                    <p class="d-flex justify-content-between mb-0 "><span class="font-weight-bold">Zoe Wright</span> <small class="">1DAY</small></p>
-                                                                    <span class="">Add Calander Event</span>
-                                                                </div>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <a class="card-footer text-center border-top-0" href="#"> View all notifications</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="dropdown user-profile ml-2 ml-sm-3 d-flex align-items-center zindex-popover">
-                                    <div class="u-info me-2">
-                                        <p class="mb-0 text-end line-height-sm "><span class="font-weight-bold">Dylan Hunter</span></p>
-                                        <small>Admin Profile</small>
-                                    </div>
-                                    <a class="nav-link dropdown-toggle pulse p-0" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static">
-                                        <img class="avatar lg rounded-circle img-thumbnail" src="{{asset('theme/dist/assets/images/profile_av.png')}}" alt="profile">
-                                    </a>
-                                    <div class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-end p-0 m-0">
-                                        <div class="card border-0 w280">
-                                            <div class="card-body pb-0">
-                                                <div class="d-flex py-1">
-                                                    <img class="avatar rounded-circle" src="assets/images/profile_av.png" alt="profile">
-                                                    <div class="flex-fill ms-3">
-                                                        <p class="mb-0"><span class="font-weight-bold">Dylan Hunter</span></p>
-                                                        <small class="">Dylan.hunter@gmail.com</small>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div><hr class="dropdown-divider border-dark"></div>
-                                            </div>
-                                            <div class="list-group m-2 ">
-                                                <a href="task.html" class="list-group-item list-group-item-action border-0 "><i class="icofont-tasks fs-5 me-3"></i>My Task</a>
-                                                <a href="members.html" class="list-group-item list-group-item-action border-0 "><i class="icofont-ui-user-group fs-6 me-3"></i>members</a>
-                                                <a href="ui-elements/auth-signin.html" class="list-group-item list-group-item-action border-0 "><i class="icofont-logout fs-6 me-3"></i>Signout</a>
-                                                <div><hr class="dropdown-divider border-dark"></div>
-                                                <a href="ui-elements/auth-signup.html" class="list-group-item list-group-item-action border-0 "><i class="icofont-contact-add fs-5 me-3"></i>Add personal account</a>
+        <!-- Side bar -->
+        <div class="sidebar px-4 py-4 py-md-5 me-0">
+            <div class="d-flex flex-column h-100">
+                <a href="theme/dist/index.html" class="mb-0 brand-icon">
+                    <span class="logo-icon">
+                        <svg  width="35" height="35" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                        </svg>
+                    </span>
+                    <span class="logo-text">My-Task</span>
+                </a>
+                <!-- Menu: main ul -->
+                <ul class="menu-list flex-grow-1 mt-3">
+                    <li class="collapsed">
+                        <a class="m-link" href="{{route('dashboard.project')}}">
+                            <i class="icofont-home fs-5"></i> <span>Project Dashboard</span></a>
+                    </li>
+                    <li  class="collapsed">
+                        <a class="m-link active"  data-bs-toggle="collapse" data-bs-target="#project-Components" href="#">
+                            <i class="icofont-briefcase"></i><span>Projects</span></a>
+                        <!-- Menu: Sub menu ul -->
+                        <ul class="sub-menu show" id="project-Components">
+                            <li><a class="ms-link active" href="{{route('user.project.index')}}"><span>Projects</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="collapsed">
+                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#emp-Components" href="theme/dist/#"><i
+                                class="icofont-users-alt-5"></i> <span>Employees</span></a>
+                        <!-- Menu: Sub menu ul -->
+                        <ul class="sub-menu collapse show" id="emp-Components">
+                            <li><a class="ms-link" href="{{route('admin.employee.index')}}"> <span>Members</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="collapsed">
+                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#extra-Components" href="#">
+                            <i class="icofont-code-alt"></i> <span>Admin Pages</span></a>
+                        <!-- Menu: Sub menu ul -->
+                        <ul class="sub-menu collapse show" id="extra-Components">
+                            <li><a class="ms-link" href="{{route('admin.project-category.index')}}"> <span>Project Category</span></a></li>
+                            <li><a class="ms-link" href="{{route('admin.skill.index')}}"> <span>Skills</span></a></li>
+                            <li><a class="ms-link" href="{{route('admin.role.index')}}"><span>Roles</span></a></li>
+                            <li><a class="ms-link" href="{{route('admin.department.index')}}"><span>Departments</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <!-- Menu: menu collepce btn -->
+                <a href="{{route('auth.logout')}}">
+                    <button type="button" class="btn btn-link sidebar-mini-btn text-light">
+                        <span class="ms-2"><i class="icofont-bubble-right"></i></span>
+                    </button>
+                </a>
+            </div>
+        </div>
+    <div class="main px-lg-4 px-md-4 mt-4">
+        <!-- Body: Header -->
+        <div class="header">
+            <nav class="navbar py-4">
+                <div class="container-xxl">
+                    <!-- header rightbar icon -->
+                    <div class="h-right d-flex align-items-center mr-5 mr-lg-0 order-1">
+                        <div class="dropdown user-profile ml-2 ml-sm-3 d-flex align-items-center zindex-popover">
+                            <div class="u-info me-2">
+                                <p class="mb-0 text-end line-height-sm "><span class="font-weight-bold">{{Auth::user()->email}}</span></p>
+                            </div>
+                            <a class="nav-link dropdown-toggle pulse p-0" role="button" data-bs-toggle="dropdown" data-bs-display="static">
+                                <img class="avatar lg rounded-circle img-thumbnail" src="{{asset('theme/dist/assets/images/profile_av.png')}}" alt="profile">
+                            </a>
+                            <div class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-end p-0 m-0">
+                                <div class="card border-0 w280">
+                                    <div class="card-body pb-0">
+                                        <div class="d-flex py-1">
+                                            <img class="avatar rounded-circle" src="{{asset('theme/dist/assets/images/profile_av.png')}}" alt="profile">
+                                            <div class="flex-fill ms-3">
+                                                <p class="mb-0"><span class="font-weight-bold">{{Auth::user()->fullname}}</span></p>
+                                                <small class="">{{Auth::user()->email}}</small>
                                             </div>
                                         </div>
+                                        
+                                        <div><hr class="dropdown-divider border-dark"></div>
+                                    </div>
+                                    <div class="list-group m-2 ">
+                                        <a href="task.html" class="list-group-item list-group-item-action border-0 "><i class="icofont-tasks fs-5 me-3"></i>My Task</a>
+                                        <a href="members.html" class="list-group-item list-group-item-action border-0 "><i class="icofont-ui-user-group fs-6 me-3"></i>members</a>
+                                        <a href="{{route('auth.logout')}}" class="list-group-item list-group-item-action border-0 "><i class="icofont-logout fs-6 me-3"></i>Signout</a>
+                                        <div><hr class="dropdown-divider border-dark"></div>
+                                        <a href="ui-elements/auth-signup.html" class="list-group-item list-group-item-action border-0 "><i class="icofont-contact-add fs-5 me-3"></i>Add personal account</a>
                                     </div>
                                 </div>
                             </div>
-            
-                            <!-- menu toggler -->
-                            <button class="navbar-toggler p-0 border-0 menu-toggle order-3" type="button" data-bs-toggle="collapse" data-bs-target="#mainHeader">
-                                <span class="fa fa-bars"></span>
-                            </button>
-            
-                            <!-- main menu Search-->
-                            <div class="order-0 col-lg-4 col-md-4 col-sm-12 col-12 mb-3 mb-md-0 ">
-                                <div class="input-group flex-nowrap input-group-lg">
-                                    <button type="button" class="input-group-text" id="addon-wrapping"><i class="fa fa-search"></i></button>
-                                    <input type="search" class="form-control" placeholder="Search" aria-label="search" aria-describedby="addon-wrapping">
-                                </div>
-                            </div>
-            
                         </div>
-                    </nav>
-                    
-                    <div class="body d-flex py-lg-3 py-md-2">
-                        <div class="container-xxl">
-                            <div class="row align-items-center">
-                                <div class="border-0 mb-4">
-                                    <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                                        <h3 class="fw-bold mb-0">Role List</h3>
-                                        <div class="col-auto d-flex w-sm-100">
-                                            <a href="{{route('admin.role.create')}}">
-                                                <button type="button" class="btn btn-dark btn-set-task w-sm-100"><i class="icofont-plus-circle me-2 fs-6"></i>Add Role</button>
-                                            </a>
-                                            </div>
+                    </div>
+    
+                    <!-- menu toggler -->
+                    <button class="navbar-toggler p-0 border-0 menu-toggle order-3" type="button" data-bs-toggle="collapse" data-bs-target="#mainHeader">
+                        <span class="fa fa-bars"></span>
+                    </button>
+    
+                    <!-- main menu Search-->
+                    <div class="order-0 col-lg-4 col-md-4 col-sm-12 col-12 mb-3 mb-md-0 ">
+                        <div class="input-group flex-nowrap input-group-lg">
+                            <button type="button" class="input-group-text" id="addon-wrapping"><i class="fa fa-search"></i></button>
+                            <input type="search" class="form-control" placeholder="Search" aria-label="search" aria-describedby="addon-wrapping">
+                        </div>
+                    </div>
+                
+                </div>
+            </nav>
+        </div>
+        <div class="row g-3">
+            <div class="col-xl-8 col-lg-12 col-md-12">
+                <div class="card teacher-card  mb-3">
+                    <div class="card-body  d-flex teacher-fulldeatil">
+                        <div class="teacher-info border-start ps-xl-4 ps-md-3 ps-sm-4 ps-4 w-100">
+                            <h6 class="text-muted small-25 d-flex">Project Id : {{$project->project_id}}</h6>
+                            <h3 class="mb-0 mt-2 fw-bold d-block">{{$project->project_title}}</h3>
+                            <div class="row g-2 pt-2">
+                                <div class="col-xl-5">
+                                    <div class="d-flex align-items-center">
+                                        <span class="py-1 small-15 mb-0 mt-1"><strong>Project Cost: </strong>{{$project->project_estimated_cost}}</span>
+                                    </div>
+                            </div>
+                            <div class="row g-2 pt-2">
+                                <div class="col-xl-5">
+                                    <div class="d-flex align-items-center">
+                                        @if ($project->project_phase == 1)
+                                        <span class="py-1 small-15 mb-0 mt-1"><strong>Project Phase: </strong>Planning</span>
+                                        @endif
+                                        @if ($project->project_phase == 2)
+                                        <span class="py-1 small-15 mb-0 mt-1"><strong>Project Phase: </strong>Implement</span>
+                                        @endif
+                                        @if ($project->project_phase == 3)
+                                        <span class="py-1 small-15 mb-0 mt-1"><strong>Project Phase: </strong>Testing</span>
+                                        @endif
+                                        @if ($project->project_phase == 4)
+                                        <span class="py-1 small-15 mb-0 mt-1"><strong>Project Phase: </strong>Finalized</span>
+                                        @endif
                                     </div>
                                 </div>
-                            </div> <!-- Row end  -->
-                            <div class="row clearfix g-3">
-                            <div class="col-sm-12">
-                                    <div class="card mb-3">
-                                        <div class="card-body">
-                                            <table id="roleTable" class="table table-hover align-middle mb-0" style="width:100%">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Role Id</th>
-                                                        <th>Role Name</th>
-                                                        <th>Detail</th>
-                                                        <th>Status</th>
-                                                        <th>View rights</th>
-                                                        <th>Actions</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($roles as $role)
-                                                    <tr>
-                                                        <td>
-                                                            <a href="#" class="fw-bold text-secondary">{{ $role->role_id}}</a>
-                                                        </td>
-                                                    <td>
-                                                        <span class="fw-bold ms-1">{{$role->role_name}}</span>
-                                                    </td>
-                                                    <td>
-                                                            <p>{{$role->role_detail}}</p>
-                                                    </td>
-                                                    <td>
-                                                            <p>{{$role->status == 1 ? 'Active' : 'Deactived'}}</p>
-                                                    </td>
-                                                    <td>
-                                                            <p>{{$role->view_right}}</p>
-                                                    </td>
-                                                        <td>
-                                                            <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                                                <a href="{{route('admin.role.destroy',['id' => $role->role_id])}}">
-                                                                    <button type="button" class="btn btn-outline-secondary deleterow"><i class="icofont-close-circled text-danger"></i></button>
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr> 
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                <div class="col-xl-5">
+                                    <div class="d-flex align-items-center">
+                                        <span class="py-1 small-15 mb-0 mt-1"><strong>Project Category: </strong>{{$project_categories->category_name}}</span>
                                     </div>
-                            </div><!-- Row End -->
+                                </div>
+                            </div>
+                            <div class="row g-2 pt-2">
+                                </div>
+                                <div class="col-xl-5">
+                                    <div class="d-flex align-items-center">
+                                        <span class="py-1 small-15 mb-0 mt-1"><strong>Project Start Date: </strong>{{$project->project_start_date}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-5">
+                                    <div class="d-flex align-items-center">
+                                        <span class="py-1 small-15 mb-0 mt-1"><strong>Project End Date: </strong>{{$project->project_end_date}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2 pt-2">
+                                <div class="col-xl-5">
+                                    <div class="d-flex align-items-center">
+                                        <span class="py-1 small-15 mb-0 mt-1"><strong>Project Estimated Cost: </strong>{{$project->project_estimated_cost}} ($)</span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-5">
+                                    <div class="d-flex align-items-center">
+                                        <span class="py-1 small-15 mb-0 mt-1"><strong>Project Leader: </strong>{{$prjLead->fullname}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2 pt-2">
+                                <div class="col-xl-5">
+                                    <div class="d-flex align-items-center">
+                                        <span class="py-1 small-15 mb-0 mt-1"><strong>Project's Department: </strong>{{$departments->department_name}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-5">
+                                    <div class="d-flex align-items-center">
+                                        <span class="py-1 small-15 mb-0 mt-1"><strong>Project Assignee: </strong>
+                                            @foreach ($assigneeData as $assignee)
+                                            <div>{{$assignee}}</div>
+                                            @endforeach
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2 pt-2">
+                                <div class="col-xl-5">
+                                    <div class="d-flex align-items-center">
+                                        <span class="py-1 small-15 mb-0 mt-1"><strong>Project Required Skills: </strong>
+                                            @foreach ($prjSkills as $prjSkill)
+                                            <div>{{$prjSkill}}</div>
+                                            @endforeach
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-5">
+                                    <div class="d-flex align-items-center">
+                                        <span class="py-1 small-15 mb-0 mt-1"><strong>Project Required Role: </strong>
+                                            @foreach ($prjRoles as $prjRole)
+                                            <div>{{$prjRole}}</div>
+                                            @endforeach
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <span class="py-1 small-15 mb-0 mt-1"><strong>Project Description: </strong></span>
+                                <textarea name="project_desscription" id="project_desscription" class="form-control mt-2" rows="3" readonly>{{$project->project_description}}</textarea>
+                            </div>
+                            <div class="row g-2 pt-2">
+                                <div class="col-xl-5 mt-5">
+                                    <a href="{{route('user.project.edit',['id' => $project->project_id] )}}">
+                                        <button type="button" class="btn btn-dark btn-set-task w-sm-100"><i class="icofont-edit fs-6"></i>Edit Project</button>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        @endsection
     </div>
-        <!-- Jquery Core Js -->
-        <script src="{{asset('theme/dist/assets/bundles/libscripts.bundle.js')}}"></script>
-            
-        <!-- Plugin Js-->
-        <script src="{{asset('theme/dist/assets/bundles/dataTables.bundle.js')}}"></script>
-        
-        <!-- Jquery Page Js -->
-        <script src="{{asset('theme/js/template.js')}}"></script>
-        <script>
-            $(document).ready(function() {
-               $('#roleTable')
-               .addClass( 'nowrap' )
-               .dataTable( {
-                   responsive: true,
-                   columnDefs: [
-                       { targets: [-1, -3], className: 'dt-body-right' }
-                   ]
-               });
-           });
-        </script>
+    @endsection
+<!-- Jquery Core Js -->
+<script src="{{asset('theme/dist/assets/bundles/libscripts.bundle.js')}}"></script>
 </body>
 </html>

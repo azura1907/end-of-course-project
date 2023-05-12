@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     {
         {
             $data = [];
-            for ($i=1; $i<100; $i++){
+            for ($i=1; $i<20; $i++){
                 $data[] = [
                     'email' => 'test'. $i .'@gmail.com',
                     'password' => bcrypt('12345678'),

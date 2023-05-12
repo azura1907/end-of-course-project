@@ -13,7 +13,7 @@ class LoginController extends Controller
     public function viewLogin() {
 
         if(Auth::check()) {
-            return redirect()->route('dashboard.employee');
+            return redirect()->route('dashboard.project');
         }
         return view('auth.login');
     }
@@ -22,7 +22,7 @@ class LoginController extends Controller
         $data = $request->only('email','password');
         // dd($data);
         if (Auth::attempt($data)){
-            return redirect()->route('dashboard.employee');
+            return redirect()->route('dashboard.project');
         }else {
             return redirect()->route('auth.viewLogin');
         }

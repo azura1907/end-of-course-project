@@ -22,7 +22,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'role_name' => 'required|unique:roles,role_name',
+            'role_name' => 'required',
             'status' => 'required:roles,status',
             'view_rights' => 'required:role,view_rights'
         ];
@@ -32,7 +32,6 @@ class UpdateRequest extends FormRequest
     {
         return [
             'role_name.required' => 'Please input role name',
-            'role_name.unique' => 'This role name is already exists',
             'status.required' => 'Please choose role status',
             'view_rights.required' => 'Please choose role view rights'
         ];

@@ -29,7 +29,7 @@ class SendTaskNoti extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Send Noti With Edited Subject',
+            subject: 'Task Assign Notification Email from My Task App',
         );
     }
 

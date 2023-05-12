@@ -22,7 +22,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category_name' => 'required|unique:project_categories,category_name',
+            'category_name' => 'required',
             'status' => 'required:project_categories,status'
         ];
     }
@@ -31,7 +31,6 @@ class UpdateRequest extends FormRequest
     {
         return [
             'category_name.required' => 'Please input project category name',
-            'category_name.unique' => 'This project category name is already exists',
             'status.required' => 'Please choose project category status'
         ];
     }

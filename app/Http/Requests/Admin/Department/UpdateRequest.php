@@ -22,7 +22,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'department_name' => 'required|unique:departments,department_name',
+            'department_name' => 'required',
             'status' => 'required:skills,status'
         ];
     }
@@ -31,7 +31,6 @@ class UpdateRequest extends FormRequest
     {
         return [
             'department_name.required' => 'Please input department name',
-            'department_name.unique' => 'This department name is already exists',
             'status.required' => 'Please choose department status'
         ];
     }

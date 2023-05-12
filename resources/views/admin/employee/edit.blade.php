@@ -129,26 +129,31 @@
             </div>
             <!-- Create Employee-->
             <div class="body d-flex py-lg-3 py-md-2">
-                <h5 class="modal-title  fw-bold" id="createprojectlLabel"> Add Employee</h5>
+                <h5 class="modal-title  fw-bold" id="createprojectlLabel"> Edit Employee</h5>
                 <div class="modal-body">
-                    <form action="{{route('admin.employee.update', ['id', $employee->id])}}" method="POST">
+                    <form action="{{ route('admin.employee.update',['id' => $employee->id]) }}" method="POST">
                         @csrf
+                        <div class="w-25 mb-3">
+                            <label class="form-label">Employee Id</label>
+                            <input readonly class="form-control" name="employee_id" value="{{$employee->id}}">
+                        </div>
                         <div class="row g-3 mb-3">
                             <div class="col-sm-6">
                                 <label class="form-label">Employee email</label>
-                                <input type="text" class="form-control" id="email" name="email" placeholder="Input employee email">
+                                <input type="text" class="form-control" id="email" name="email" placeholder="Input employee email" value="{{$employee->email}}" disabled>
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label">Password</label>
-                                <input type="text" class="form-control" id="password" name="password" placeholder="Input employee password">
+                                <input type="Password" class="form-control" id="password" name="password" placeholder="Input employee password">
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label">Entry Date</label>
-                                <input type="date" class="form-control" id="entry_date" name="entry_date">
+                                <input type="date" class="form-control" id="entry_date" name="entry_date" value={{$employee->entry_date}}>
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label">Employee Name</label>
-                                <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Input employee fullname">
+                                <input type="text" class="form-control" id="fullname" name="fullname" 
+                                placeholder="Input employee fullname" value="{{ $employee->fullname}}">
                             </div>
                         </div>
                         <div class="row g-3 mb-3">
@@ -166,7 +171,7 @@
                                 <label  class="form-label">Role</label>
                                 <select class="form-select" name="role" aria-label="Default select Project Category">
                                 @foreach ($roles as $role)
-                                    <option value={{$role->role_id}}>{{ $role->role_name}}</option>
+                                    <option value={{$role->role_id}} {{$employee->role == $role->role_id ? 'selected' : ''}}>{{ $role->role_name}}</option>
                                 @endforeach
                             </select>
                             </div>
@@ -178,6 +183,13 @@
                                             {{ $skill->skill_name}}
                                         </option>
                                     @endforeach
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label class="form-label">Status</label>
+                                <select class="form-select" name="status" id="status">
+                                    <option value="1" {{$employee->status == 1 ? 'selected' : ''}}>Active</option>
+                                    <option value="2" {{$employee->status == 2 ? 'selected' : ''}}>Block</option>
                                 </select>
                             </div>
                             <div class="mb-3">

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendTaskNoti;
 use App\Mail\SendAssigneeUpdateNoti;
+use App\Mail\SendTaskInfoChangeNoti;
 
 class TaskController extends Controller
 {
@@ -103,7 +104,7 @@ class TaskController extends Controller
         $data = $request->except('_token');
         $data['updated_at'] = new \DateTime;
         // dd($oldTaskData, $data);
-        // DB::table('tasks')->where('task_id', $id)->update($data);
+        DB::table('tasks')->where('task_id', $id)->update($data);
 
         //get assignee email to send
         $assignee = $request->only('assignee');
@@ -129,11 +130,6 @@ class TaskController extends Controller
         $emaildata['assigned_by'] = $assignedByFullname;
         $emaildata['task_name'] = $data['task_name'];
 
-        if ($taskAssigneeDiff !== 0) {
-            $emaildata['old_assignee'] = $oldAssgineeFullname->fullname;
-            $emaildata['new_assignee'] = $assigneeFullname->fullname;
-            Mail::to($assigneeEmail)->send(new SendTaskNoti($emaildata));
-        }
         if ($taskNameDiff !== 0) {
             $emaildata['old_task_name'] = $oldTaskData->task_name;
             $emaildata['new_task_name'] = $data['task_name'];
@@ -158,9 +154,20 @@ class TaskController extends Controller
             $emaildata['old_status'] = $oldTaskData->task_status;
             $emaildata['new_status'] = $data['task_status'];
         }
+        if ($taskAssigneeDiff !== 0) {
+            $emaildata['old_assignee'] = $oldAssgineeFullname->fullname;
+            $emaildata['new_assignee'] = $assigneeFullname->fullname;
+            Mail::to($assigneeEmail)->send(new SendTaskNoti($emaildata));
+            Mail::to($oldAssgineeEmail->email)->send(new SendAssigneeUpdateNoti($emaildata));
+        }
 
-        // dd($emaildata);
-        Mail::to($oldAssgineeEmail->email)->send(new SendAssigneeUpdateNoti($emaildata));
+        if($taskAssigneeDiff == 0) {
+        $emaildata['old_assignee'] = $oldAssgineeFullname->fullname;
+        $emaildata['new_assignee'] = $oldAssgineeFullname->fullname;
+        Mail::to($oldAssgineeEmail->email)->send(new SendTaskInfoChangeNoti($emaildata));
+        }
+
+
 
         return redirect()->route('user.project.index')->with('success', 'Task successfully updated');
     }

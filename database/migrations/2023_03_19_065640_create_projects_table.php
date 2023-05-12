@@ -19,7 +19,6 @@ return new class extends Migration
             $table->date('project_end_date');
             $table->integer('project_estimated_cost');
             $table->tinyInteger('project_phase')->defaut(1)->comment('');
-            $table->tinyInteger('project_status')->default(1)->comment('');
             $table->unsignedBigInteger('project_lead');
             $table->foreign('project_lead')->references('id')->on('employees');
             $table->unsignedBigInteger('project_category');

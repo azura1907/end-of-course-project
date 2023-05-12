@@ -35,7 +35,6 @@ Route::get('unauthorized', [ErrorController::class, 'unauthorized'])->name('unau
 Route::get('send-mail', [SendMailController::class, 'send'])->name('send');
 
 Route::prefix('dashboard')->name('dashboard.')->middleware(['checkLogin'])->group(function() {
-    Route::get('employee', [DashboardController::class, 'employee'])->name('employee');
     Route::get('project', [DashboardController::class, 'project'])->name('project');
 });
 
@@ -86,12 +85,12 @@ Route::prefix('auth')->name('auth.')->group(function () {
 
         Route::prefix('employee')->controller(EmployeeController::class)->name('employee.')->middleware(['checkLogin','checkRole'])->group(function () {
             Route::get('index', 'index')->name('index');
-            Route::get('detail/{id}', 'detail')->name('detail');
+            Route::get('detail/{id}', 'detailInfo')->name('detailInfo');
             Route::get('create','create')->name('create');
             Route::post('store','store')->name('store');
             Route::get('edit/{id}', 'edit')->name('edit');
             Route::get('info-edit/{id}', 'infoEdit')->name('infoEdit');
-            Route::post('storeDetailInfo', 'storeDetailInfo')->name('storeDetailInfo');
+            Route::post('updateDetailInfo/{id}', 'updateDetailInfo')->name('updateDetailInfo');
             Route::post('update/{id}','update')->name('update');
             Route::get('destroy/{id}', 'destroy')->name('destroy');
         });
@@ -110,9 +109,7 @@ Route::prefix('auth')->name('auth.')->group(function () {
 
         Route::prefix('employee')->controller(UserEmployeeController::class)->name('employee.')->middleware('checkLogin')->group(function () {
             Route::get('index', 'index')->name('index');
-            Route::get('detail/{id}', 'detail')->name('detail');
-            Route::get('edit/{id}', 'edit')->middleware('checkRole')->name('edit');
-            Route::post('update/{id}','update')->middleware('checkRole')->name('update');
+            Route::get('detail/{id}', 'detailInfo')->name('detailInfo');
         });
 
         Route::prefix('task')->controller(TaskController::class)->name('task.')->middleware('checkLogin')->group(function () {

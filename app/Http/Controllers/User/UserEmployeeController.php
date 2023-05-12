@@ -3,23 +3,59 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserEmployeeController extends Controller
 {
     public function index(){
-        return view('user.employee.index');
+        // $employees = DB::table('employees')->orderBy('created_at', 'DESC')->get();
+        $employees = DB::table('employees')
+        ->join('departments', 'departments.department_id', '=', 'employees.department')
+        ->join('roles', 'roles.role_id', '=', 'employees.role')
+        ->select('employees.*','departments.department_name','roles.role_name')
+        ->get();
+
+        // dd($employees);
+        return view('user.employee.index',['employees' => $employees]);
     }
 
-    public function detail(){
-        return view('user.employee.detail');
-    }
+    public function detailInfo($targetEmp){
+        $employee = DB::table('employees')->where('employees.id',$targetEmp)->first();
+        $empPersonalInfo = DB::table('employee_infos')->where('id', $employee->id)->first();
 
-    public function create(){
-        return view('user.employee.create');
-    }
+        $employeeSkills = DB::table('employees')
+        ->join('employee_skills','employees.id', '=', 'employee_skills.employee_id')
+        ->join('skills','skills.skill_id', '=', 'employee_skills.skill_id')
+        ->select('skills.skill_name')->where('id', $employee->id)->get();
+        $skillData = [];
+        for ($i=0; $i <count($employeeSkills) ; $i++) { 
+            array_push($skillData,$employeeSkills[$i]->skill_name);
+        }
 
-    public function edit(){
-        return view('user.employee.edit');
+        $employeeDepartment = DB::table('employees')
+        ->join('departments','employees.department', '=', 'departments.department_id')
+        ->select('departments.department_name')->where('id', $employee->id)->get();
+        $departmentData = [];
+        for ($i=0; $i <count($employeeDepartment) ; $i++) { 
+            $departmentData = $employeeDepartment[$i]->department_name;
+        }
+
+
+        $employeeRole = DB::table('employees')->join('roles','employees.role', '=', 'roles.role_id')
+        ->select('roles.role_name')->where('id', $employee->id)->get();
+        $roleData = [];
+        for ($i=0; $i <count($employeeRole) ; $i++) { 
+            $roleData = $employeeRole[$i]->role_name;
+        }
+
+        // dd($skillData);
+        return view('user.employee.detail',
+        [
+            'employee' => $employee,
+            'personalInfo' => $empPersonalInfo,
+            'department' => $departmentData,
+            'role' => $roleData
+        ]
+    );
     }
 }

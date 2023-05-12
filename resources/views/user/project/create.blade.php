@@ -10,26 +10,9 @@
     <!-- project css file  -->
     <link rel="stylesheet" href="{{asset('theme/dist/assets/css/my-task.style.min.css')}}">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{asset('theme/dist/assets/plugin/parsleyjs/css/parsley.css')}}">
 </head>
 <body>
-    <!-- Jquery Core Js -->
-    <script src="{{ asset('theme/dist/assets/bundles/libscripts.bundle.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            $('#employees_id').select2(
-            );
-    
-            $('#required_skills').select2(
-            );
-    
-            $('#required_roles').select2(
-            );
-        });
-    </script>
-    
         @section('user-project-create')
         <div id="mytask-layout" class="theme-indigo">
         <!-- Side bar -->
@@ -57,7 +40,6 @@
                         <!-- Menu: Sub menu ul -->
                         <ul class="sub-menu show" id="project-Components">
                             <li><a class="ms-link active" href="{{route('user.project.index')}}"><span>Projects</span></a></li>
-                            <li><a class="ms-link" href="theme/dist/team-leader.html"><span>Leaders</span></a></li>
                         </ul>
                     </li>
                     <li class="collapsed">
@@ -65,20 +47,27 @@
                                 class="icofont-users-alt-5"></i> <span>Employees</span></a>
                         <!-- Menu: Sub menu ul -->
                         <ul class="sub-menu collapse show" id="emp-Components">
-                            <li><a class="ms-link" href="{{route('admin.employee.index')}}"> <span>Members</span></a></li>
+                            @if (Auth::user()->view_right == 1)
+                                <li><a class="ms-link" href="{{route('user.employee.index')}}"> <span>Members</span></a></li>
+                            @endif
+                            @if (Auth::user()->view_right !== 1)
+                                <li><a class="ms-link" href="{{route('admin.employee.index')}}"> <span>Members</span></a></li>
+                            @endif
                         </ul>
                     </li>
-                    <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#extra-Components" href="#">
-                            <i class="icofont-code-alt"></i> <span>Admin Pages</span></a>
-                        <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse show" id="extra-Components">
-                            <li><a class="ms-link" href="{{route('admin.project-category.index')}}"> <span>Project Category</span></a></li>
-                            <li><a class="ms-link" href="{{route('admin.skill.index')}}"> <span>Skills</span></a></li>
-                            <li><a class="ms-link" href="{{route('admin.role.index')}}"><span>Roles</span></a></li>
-                            <li><a class="ms-link" href="{{route('admin.department.index')}}"><span>Departments</span></a></li>
-                        </ul>
-                    </li>
+                    @if (Auth::user()->view_right == 1)
+                        <li class="collapsed">
+                            <a class="m-link" data-bs-toggle="collapse" data-bs-target="#extra-Components" href="#">
+                                <i class="icofont-code-alt"></i> <span>Admin Pages</span></a>
+                            <!-- Menu: Sub menu ul -->
+                            <ul class="sub-menu collapse show" id="extra-Components">
+                                <li><a class="ms-link" href="{{route('admin.project-category.index')}}"> <span>Project Category</span></a></li>
+                                <li><a class="ms-link" href="{{route('admin.skill.index')}}"> <span>Skills</span></a></li>
+                                <li><a class="ms-link" href="{{route('admin.role.index')}}"><span>Roles</span></a></li>
+                                <li><a class="ms-link" href="{{route('admin.department.index')}}"><span>Departments</span></a></li>
+                            </ul>
+                        </li>
+                    @endif
                 </ul>
 
                 <!-- Menu: menu collepce btn -->
@@ -147,12 +136,12 @@
             
             <div class="body d-flex py-lg-3 py-md-2">
                 <h5 class="fw-bold" id="createprojectlLabel"> Create Project</h5>
-                <form action="{{ route('user.project.store')}}" method="POST">
+                <form action="{{ route('user.project.store')}}" id="create_project" data-parsley-validate novalidate method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="exampleFormControlInput77" class="form-label">Project Name</label>
-                            <input type="text" class="form-control" id="project_title" name="project_title" placeholder="Explain what the Project Name">
+                            <label for="exampleFormControlInput77" class="form-label">Project Title</label>
+                            <input type="text" class="form-control" id="project_title" name="project_title" required data-parsley-minlength="255" placeholder="Explain what the Project Name">
                         </div>
                         <div class="mb-3">
                             <label  class="form-label">Project Category</label>
@@ -174,22 +163,11 @@
                                         <input type="date" class="form-control" id="project_end_date" name="project_end_date">
                                     </div>
                                 </div>
-                                {{-- assign employee to project --}}
-                                {{-- <div class="row g-3 mb-3">
-                                    <div class="col-sm-12">
-                                        <label for="formFileMultipleone" class="form-label">Assginee</label>
-                                        <select class="form-select" multiple aria-label="Default select Priority">
-                                            @foreach ($employees as $employee)
-                                            <option value={{ $employee->id }}>{{ $employee->email}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div> --}}
                             </form>
                         </div>
                         <div class="row g-3 mb-3">
                             <div class="col-sm">
-                                <label for="formFileMultipleone" class="form-label">Estimated cost</label>
+                                <label for="formFileMultipleone" class="form-label">Project Unit Price ($)</label>
                                 <input type="number" class="form-control" id="project_estimated_cost" name="project_estimated_cost">
                             </div>
                             <div class="col-sm">
@@ -203,9 +181,9 @@
                             </div>
                             <div class="col-sm">
                                 <label for="formFileMultipleone" class="form-label">Project lead</label>
-                                <select class="form-select" name="project_lead">
+                                <select class="form-select" name="project_lead" id="project_lead">
                                     @foreach ($employees as $employee)
-                                        <option value={{$employee->id}}>{{$employee->email}}</option>
+                                        <option value={{$employee->id}}>{{$employee->fullname}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -254,5 +232,26 @@
         </div>
     </div>
     @endsection
+    <!-- Jquery Core Js -->
+    <script src="{{ asset('theme/dist/assets/bundles/libscripts.bundle.js') }}"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            $('#project_lead').select2(
+            );
+
+            $('#employees_id').select2(
+            );
+    
+            $('#required_skills').select2(
+            );
+    
+            $('#required_roles').select2(
+            );
+        });
+    </script>
 </body>
 </html>

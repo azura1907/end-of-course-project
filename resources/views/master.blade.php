@@ -164,7 +164,6 @@
 
         <!-- Dashboard -->
         @yield('project-dashboard')
-        @yield('employee-dashboard')
 
         <!-- Admin -->
         @yield('skill-index')

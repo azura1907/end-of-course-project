@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class SendAssigneeUpdateNoti extends Mailable
+class SendTaskInfoChangeNoti extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -29,7 +29,7 @@ class SendAssigneeUpdateNoti extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Task Assignee Change Notification Email from My Task App',
+            subject: 'Task Info Change Notification Email from My Task App',
         );
     }
 
@@ -39,7 +39,7 @@ class SendAssigneeUpdateNoti extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.assignee-change-send-mail',
+            view: 'mail.task-info-change-send-mail',
             with: [
                 'data' => $this->dulieu
             ]

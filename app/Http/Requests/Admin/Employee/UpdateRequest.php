@@ -22,25 +22,22 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|unique:employees,email',
-            'password' => 'required|min:8|confirmed',
-            'entry_date' => 'required:employees,entry_date',
-            'fullname' => 'required:employees,fullname',
-            'skills[]' => 'required:employee_skills,skills[]'
+            'password' => 'required|min:8',
+            'entry_date' => 'required',
+            'fullname' => 'required',
+            'skills' => 'required'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'email.required' => 'Please input email',
-            'email.unique' => 'This email is already exists',
             'email.email' => 'Wrong email format. Please check and input again.',
             'password.required' => 'Please input password',
+            'password.min' => 'Please input at least 8 chars for password',
             'entry_date.required' => 'Please input employee entry date',
             'fullname.required' => 'Please input employee fullname',
-            'skills[].required' => 'Please select employee skills',
-            'password.confirmed' => 'Password and confirm password are not match. Please check and input again.'
+            'skills.required' => 'Please select employee skills'
         ];
     }
 }

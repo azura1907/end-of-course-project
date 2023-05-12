@@ -22,7 +22,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'skill_name' => 'required|unique:skills,skill_name',
+            'skill_name' => 'required',
             'status' => 'required:skills,status'
         ];
     }
@@ -31,7 +31,6 @@ class UpdateRequest extends FormRequest
     {
         return [
             'skill_name.required' => 'Please input skill name',
-            'skill_name.unique' => 'This skill name is already exists',
             'status.required' => 'Please choose skill status'
         ];
     }

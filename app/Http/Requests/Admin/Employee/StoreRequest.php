@@ -23,7 +23,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'email' => 'required|unique:employees,email',
-            // 'password' => 'required|min:8|confirmed',
+            'password' => 'required|min:8',
             'entry_date' => 'required:employees,entry_date',
             'fullname' => 'required:employees,fullname',
             'skills' => 'required:employee_skills,skills'
@@ -37,7 +37,6 @@ class StoreRequest extends FormRequest
             'email.unique' => 'This email is already exists',
             'email.email' => 'Wrong email format. Please check and input again.',
             'password.required' => 'Please input password',
-            // 'password.confirmed' => 'Password and confirm password are not match. Please check and input again.'
         ];
     }
 }

@@ -140,7 +140,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label">Password</label>
-                                <input type="text" class="form-control" id="password" name="password" placeholder="Input employee password">
+                                <input type="Password" class="form-control" id="password" name="password" placeholder="Input employee password">
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label">Entry Date</label>
@@ -176,8 +176,32 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="mb-3">
-                                <button type="submit" class="btn btn-secondary mx-3 mt-1 mb-3">Create</button>
+                            <div class="row g-3 mb-3">
+                                <div class="col">
+                                    <label for="datepickerded" class="form-label">Employee DOB</label>
+                                    <input type="date" class="form-control" id="dob" name="dob">
+                                </div>
+                                <div class="col">
+                                    <label  class="form-label">Gender</label>
+                                    <td>
+                                        <select class="form-select" name="gender">
+                                            <option value="1">Male</option>
+                                            <option value="2">Female</option>
+                                            <option value="3">Others</option>
+                                        </select>
+                                    </td>
+                                </div>
+                                <div class="col">
+                                    <label  class="form-label">Address</label>
+                                    <input type="text" class="form-control" id="address" name="address" placeholder="Input employee address">
+                                </div>
+                                <div class="col">
+                                        <label class="form-label">Phone</label>
+                                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Input employee phone number">
+                                </div>
+                                <div class="mb-3">
+                                    <button type="submit" class="btn btn-secondary mx-3 mt-1 mb-3">Create</button>
+                                </div>
                             </div>
                     </form>
                 </div>
