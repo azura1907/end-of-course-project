@@ -24,8 +24,8 @@ class UpdateRequest extends FormRequest
         return [
             'project_title' => 'required|min:8|max:255',
             'project_description' => 'required|max:255',
-            'project_start_date' => 'required',
-            'project_end_date' => 'required',
+            'project_start_date' => 'required|before_or_equal:project_end_date',
+            'project_end_date' => 'required|after_or_equal:project_start_date',
             'project_estimated_cost' => 'required',
             'project_lead' => 'required',
             'project_category' => 'required',
@@ -39,14 +39,16 @@ class UpdateRequest extends FormRequest
             'project_title.required' => 'Please input Project Title',
             'project_title.min' => 'Project Title must be more than 8 chars',
             'project_title.max' => 'Project Title max lenght is no more than 255',
-            'project_description' => 'Please input Project Description',
+            'project_description.required' => 'Please input Project Description',
             'project_description.max' => 'Project Description max lenght is no more than 255',
-            'project_start_date' => 'Please input Project Start Date',
-            'project_end_date' => 'Please input Project End Date',
-            'project_estimated_cost' => 'Please input Project Cost',
-            'project_lead' => 'Please select Project Lead',
-            'project_category' => 'Please select Project Category',
-            'department' => 'Please select Project Department'
+            'project_start_date.required' => 'Please input Project Start Date',
+            'project_start_date.before_or_equal' => 'Start Date has to be before or equal with End Date',
+            'project_end_date.required' => 'Please input Project End Date',
+            'project_end_date.after_or_equal' => 'End Date has to be after or equal with Start Date',
+            'project_estimated_cost.required' => 'Please input Project Cost',
+            'project_lead.required' => 'Please select Project Lead',
+            'project_category.required' => 'Please select Project Category',
+            'department.required' => 'Please select Project Department'
         ];
     }
 }

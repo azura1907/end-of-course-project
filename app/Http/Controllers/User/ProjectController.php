@@ -14,7 +14,7 @@ class ProjectController extends Controller
     public function index(){
         $projects = DB::table('projects')
         ->join('project_assignee','projects.project_id', '=', 'project_assignee.project_id')
-        ->where('project_assignee.employee_id', Auth::user()->id)->select('projects.*')->groupBy('projects.project_id')->get();
+        ->where('project_assignee.employee_id', Auth::user()->id)->orWhere('projects.project_lead', Auth::user()->id)->select('projects.*')->groupBy('projects.project_id')->get();
 
         $projectAssignee = DB::table('project_assignee')
         ->join('employees','project_assignee.employee_id', '=', 'employees.id')
@@ -47,7 +47,7 @@ class ProjectController extends Controller
 
         $employees = DB::table('employees')
         ->orderBy('created_at', 'DESC')->get();
-        // dd($tasks);
+        // dd($projects);
         return view('user.project.index', 
         [
             'projects' => $projects,
