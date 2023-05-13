@@ -142,6 +142,88 @@
                 <div class="container-xxl">
                     <div class="row g-3 mb-3 row-deck">
                         <div class="border-0 mb-4">
+                            <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
+                                <h3 class="fw-bold mb-0">Task List</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Row end  -->
+                    <div class="row clearfix g-3">
+                        <div class="col-sm-12">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <table id="taskTable" class="table table-hover align-middle mb-0" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Task Id</th>
+                                                <th>Project Name</th>
+                                                <th>Task Title</th>
+                                                <th>Assignee</th>
+                                                <th>Start date</th>
+                                                <th>End date</th>
+                                                <th>Cost (hour)</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($tasks as $task)
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="fw-bold text-secondary">{{ $task->task_id}}</a>
+                                                    </td>
+                                                    <td>
+                                                        <span class="fw-bold ms-1">{{$task->project_title}}</span>
+                                                    </td>
+                                                    <td>
+                                                            <p>{{$task->task_name}}</p>
+                                                    </td>
+                                                    <td>
+                                                            <p>{{$task->fullname}}</p>
+                                                    </td>
+                                                    <td>
+                                                            <p>{{$task->task_start_date}}</p>
+                                                    </td>
+                                                    <td>
+                                                            <p>{{$task->task_end_date}}</p>
+                                                    </td>
+                                                    <td>
+                                                            <p>{{$task->task_estimated_cost}}</p>
+                                                    </td>
+                                                    <td>
+                                                        @if ($task->task_status == 1)
+                                                            <span class="badge bg-warning text-dark">New</span>
+                                                        @endif
+                                                        @if ($task->task_status == 2)
+                                                            <span class="badge bg-info">Doing</span>
+                                                        @endif
+                                                        @if ($task->task_status == 3)
+                                                            <span class="badge bg-success">Done</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-dark btn-set-task w-sm-100"
+                                                        data-bs-toggle="modal" 
+                                                        data-bs-target="#taskedit-{{$task->task_id}}"><i class="icofont-edit me-2 fs-6"></i>Edit Task</button>
+                                                        @if(Auth::user()->view_right !== 3)
+                                                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                                <button type="button" class="btn btn-outline-secondary deleterow"
+                                                                data-bs-toggle="modal" 
+                                                                data-bs-target="#removetask-{{$task->task_id}}"><i class="icofont-close-circled text-danger"></i></button>
+                                                            </div>
+                                                        @endif
+                                                    </td>
+                                                </tr> 
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Row End -->
+                    <div class="row g-3 mb-3 row-deck">
+                        <div class="border-0 mb-4">
                             <div class="card-header p-0 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
                                 <h3 class="fw-bold py-3 mb-0">Projects</h3>
                                 <div class="d-flex py-2 project-tab flex-wrap w-sm-100">
@@ -353,88 +435,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row g-3 mb-3 row-deck">
-                        <div class="border-0 mb-4">
-                            <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                                <h3 class="fw-bold mb-0">Task List</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Row end  -->
-                    <div class="row clearfix g-3">
-                        <div class="col-sm-12">
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <table id="taskTable" class="table table-hover align-middle mb-0" style="width:100%">
-                                        <thead>
-                                            <tr>
-                                                <th>Task Id</th>
-                                                <th>Project Name</th>
-                                                <th>Task Title</th>
-                                                <th>Assignee</th>
-                                                <th>Start date</th>
-                                                <th>End date</th>
-                                                <th>Cost (hour)</th>
-                                                <th>Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($tasks as $task)
-                                                <tr>
-                                                    <td>
-                                                        <a href="#" class="fw-bold text-secondary">{{ $task->task_id}}</a>
-                                                    </td>
-                                                    <td>
-                                                        <span class="fw-bold ms-1">{{$task->project_title}}</span>
-                                                    </td>
-                                                    <td>
-                                                            <p>{{$task->task_name}}</p>
-                                                    </td>
-                                                    <td>
-                                                            <p>{{$task->fullname}}</p>
-                                                    </td>
-                                                    <td>
-                                                            <p>{{$task->task_start_date}}</p>
-                                                    </td>
-                                                    <td>
-                                                            <p>{{$task->task_end_date}}</p>
-                                                    </td>
-                                                    <td>
-                                                            <p>{{$task->task_estimated_cost}}</p>
-                                                    </td>
-                                                    <td>
-                                                        @if ($task->task_status == 1)
-                                                            <span class="badge bg-warning text-dark">New</span>
-                                                        @endif
-                                                        @if ($task->task_status == 2)
-                                                            <span class="badge bg-info">Doing</span>
-                                                        @endif
-                                                        @if ($task->task_status == 3)
-                                                            <span class="badge bg-success">Done</span>
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-dark btn-set-task w-sm-100"
-                                                        data-bs-toggle="modal" 
-                                                        data-bs-target="#taskedit-{{$task->task_id}}"><i class="icofont-edit me-2 fs-6"></i>Edit Task</button>
-                                                        @if(Auth::user()->view_right !== 3)
-                                                            <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                                                <button type="button" class="btn btn-outline-secondary deleterow"
-                                                                data-bs-toggle="modal" 
-                                                                data-bs-target="#removetask-{{$task->task_id}}"><i class="icofont-close-circled text-danger"></i></button>
-                                                            </div>
-                                                        @endif
-                                                    </td>
-                                                </tr> 
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Row End -->
                 </div>
             </div>
         </div>

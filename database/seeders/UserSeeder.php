@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     {
         {
             $data = [];
-            for ($i=1; $i<20; $i++){
+            for ($i=1; $i<5; $i++){
                 $data[] = [
                     'email' => 'test'. $i .'@gmail.com',
                     'password' => bcrypt('12345678'),
@@ -27,7 +27,6 @@ class UserSeeder extends Seeder
                     'view_right' => rand(1,2,3),
                 ];
             }
-    
             DB::table('employees')->insert($data);
         }
     }
