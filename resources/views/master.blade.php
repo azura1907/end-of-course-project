@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>:: My-Task:: Employee Dashboard </title>
+    <title>:: My-Task ::</title>
     <link rel="icon" href="theme/dist/favicon.ico" type="image/x-icon"> <!-- Favicon-->
 </head>
 <body>
@@ -175,6 +175,7 @@
         @yield('employee-edit')
         @yield('employee-info-edit')
         @yield('admin-employee-detail')
+        @yield('password-change')
         @yield('project-category-create')
         @yield('project-category-edit')
         @yield('department-create')

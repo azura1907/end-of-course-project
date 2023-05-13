@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Employee\PersonalInfoUpdateRequest;
 use App\Http\Requests\Admin\Employee\StoreRequest;
+use App\Http\Requests\Admin\Employee\UpdatePasswordRequest;
 use App\Http\Requests\Admin\Employee\UpdateRequest;
 use App\Http\Requests\User\Employee\UpdateRequest as EmployeeUpdateRequest;
 use DateTime;
@@ -18,6 +19,7 @@ class EmployeeController extends Controller
         $employees = DB::table('employees')
         ->join('departments', 'departments.department_id', '=', 'employees.department')
         ->join('roles', 'roles.role_id', '=', 'employees.role')
+        ->where('employees.id','<>',Auth::user()->id)
         ->select('employees.*','departments.department_name','roles.role_name')
         ->get();
 
@@ -104,8 +106,7 @@ class EmployeeController extends Controller
     }
 
     public function update(UpdateRequest $request, $id) {
-        $data = $request->only('password','entry_date','fullname','department','role','status');
-        $data['password'] = bcrypt($request->password);
+        $data = $request->only('entry_date','fullname','department','role','status');
         $data['updated_at'] = new \DateTime;
         $data['created_by'] = Auth::user()->id;
 
@@ -131,6 +132,8 @@ class EmployeeController extends Controller
                 DB::table('employee_skills')->insert($skillData);
             }
         }
+
+        // dd($data);
         return redirect()->route('admin.employee.index')->with('success', 'Employee successfully created');
     }
 
@@ -195,4 +198,19 @@ class EmployeeController extends Controller
         return redirect()->route('admin.employee.detailInfo',['id' => $empId['employee_id']])->with('success', 'Employee infos successfully updated');
     }
 
+    public function updatePw($id) {
+        $employee = DB::table('employees')->where('employees.id',$id)->first();
+
+        return view('admin.employee.password-change', [
+            'employee' => $employee
+        ]);
+    }
+
+    public function storeNewPassword(UpdatePasswordRequest $request, $id) {
+        $data['password'] = bcrypt($request->password);
+       
+        DB::table('employees')->where('employees.id',$id)->update($data);
+
+        return redirect()->route('admin.employee.index')->with('success', 'Password successfully changed');
+    }
 }

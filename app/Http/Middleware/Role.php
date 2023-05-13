@@ -16,7 +16,7 @@ class Role
      */
     public function handle(Request $request, Closure $next): Response
     {   
-        
+
         if((Auth::user()->view_right == 1 || Auth::user()->view_right == 2) && Auth::user()->status == 1) {
             return $next($request);
         }

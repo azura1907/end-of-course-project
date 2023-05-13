@@ -88,13 +88,17 @@
                     <div class="container-xxl">
                         <!-- header rightbar icon -->
                         <div class="h-right d-flex align-items-center mr-5 mr-lg-0 order-1">
-                            <div class="dropdown user-profile ml-2 ml-sm-3 d-flex align-items-center zindex-popover">
-                                <div class="u-info me-2">
+                            <div class="dropdown user-profile ml-2 ml-sm-3 d-block align-items-center zindex-popover">
                                     <p class="mb-0 text-end line-height-sm "><span class="font-weight-bold">{{Auth::user()->email}}</span></p>
-                                </div>
-                                <a class="nav-link dropdown-toggle pulse p-0" role="button" data-bs-toggle="dropdown" data-bs-display="static">
-                                    <img class="avatar lg rounded-circle img-thumbnail" src="{{asset('theme/dist/assets/images/profile_av.png')}}" alt="profile">
-                                </a>
+                                    @if(Auth::user()->view_right == 1)
+                                        <p class="mb-0 text-end line-height-sm "><span class="font-weight-bold">Admin</span></p>
+                                    @endif
+                                    @if(Auth::user()->view_right !== 1)
+                                        <p class="mb-0 text-end line-height-sm "><span class="font-weight-bold">Employee</span></p>
+                                    @endif
+                                    <a class="nav-link dropdown-toggle pulse p-0" role="button" data-bs-toggle="dropdown" data-bs-display="static">
+                                        <img class="avatar lg rounded-circle img-thumbnail" src="{{asset('theme/dist/assets/images/profile_av.png')}}" alt="profile">
+                                    </a>
                                 <div class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-end p-0 m-0">
                                     <div class="card border-0 w280">
                                         <div class="card-body pb-0">
@@ -109,30 +113,16 @@
                                             <div><hr class="dropdown-divider border-dark"></div>
                                         </div>
                                         <div class="list-group m-2 ">
-                                            <a href="task.html" class="list-group-item list-group-item-action border-0 "><i class="icofont-tasks fs-5 me-3"></i>My Task</a>
-                                            <a href="members.html" class="list-group-item list-group-item-action border-0 "><i class="icofont-ui-user-group fs-6 me-3"></i>members</a>
+                                            <a href="{{route('user.employee.detailInfo',['id'=>Auth::user()->id])}}" class="list-group-item list-group-item-action border-0 "><i class="icofont-ui-user-group fs-6 me-3"></i>Account info</a>
                                             <a href="{{route('auth.logout')}}" class="list-group-item list-group-item-action border-0 "><i class="icofont-logout fs-6 me-3"></i>Signout</a>
-                                            <div><hr class="dropdown-divider border-dark"></div>
-                                            <a href="ui-elements/auth-signup.html" class="list-group-item list-group-item-action border-0 "><i class="icofont-contact-add fs-5 me-3"></i>Add personal account</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-        
-                        <!-- menu toggler -->
-                        <button class="navbar-toggler p-0 border-0 menu-toggle order-3" type="button" data-bs-toggle="collapse" data-bs-target="#mainHeader">
-                            <span class="fa fa-bars"></span>
-                        </button>
-        
                         <!-- main menu Search-->
                         <div class="order-0 col-lg-4 col-md-4 col-sm-12 col-12 mb-3 mb-md-0 ">
-                            <div class="input-group flex-nowrap input-group-lg">
-                                <button type="button" class="input-group-text" id="addon-wrapping"><i class="fa fa-search"></i></button>
-                                <input type="search" class="form-control" placeholder="Search" aria-label="search" aria-describedby="addon-wrapping">
-                            </div>
                         </div>
-                    
                     </div>
                 </nav>
             </div>
@@ -261,10 +251,10 @@
                                                         </div>
                                                         <div class="btn-group" role="group" aria-label="Basic outlined example">
                                                             @if (Auth::user()->view_right !== 3)
-                                                            <button type="button" class="btn btn-dark btn-set-task w-sm-100" data-bs-toggle="modal" data-bs-target="#taskcreate-{{$targetproject->project_id}}"><i class="icofont-plus-circle me-2 fs-6"></i>Add Task</button>
-                                                            <a href="{{route('user.project.edit', ['id' => $targetproject->project_id]) }}"><button type="button" class="btn btn-outline-secondary"><i class="icofont-edit text-success"></i>Edit Project</button></a>
-                                                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteproject-{{$targetproject->project_id}}"><i class="icofont-ui-delete text-danger"></i></button>
-                                                        @endif
+                                                                <button type="button" class="btn btn-dark btn-set-task w-sm-100" data-bs-toggle="modal" data-bs-target="#taskcreate-{{$targetproject->project_id}}"><i class="icofont-plus-circle me-2 fs-6"></i>Add Task</button>
+                                                                <a href="{{route('user.project.edit', ['id' => $targetproject->project_id]) }}"><button type="button" class="btn btn-outline-secondary"><i class="icofont-edit text-success"></i>Edit Project</button></a>
+                                                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteproject-{{$targetproject->project_id}}"><i class="icofont-ui-delete text-danger"></i></button>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="row g-2 pt-4">
@@ -307,15 +297,14 @@
                                                         </div>
                                                         <div class="btn-group" role="group" aria-label="Basic outlined example">
                                                             @if (Auth::user()->view_right !== 3)
-                                                            <button type="button" class="btn btn-dark btn-set-task w-sm-100" data-bs-toggle="modal" data-bs-target="#taskcreate-{{$planningProject->project_id}}"><i class="icofont-plus-circle me-2 fs-6"></i>Add Task</button>
+                                                                <button type="button" class="btn btn-dark btn-set-task w-sm-100" data-bs-toggle="modal" data-bs-target="#taskcreate-{{$planningProject->project_id}}"><i class="icofont-plus-circle me-2 fs-6"></i>Add Task</button>
+                                                                <a href="{{route('user.project.edit', ['id' => $planningProject->project_id]) }}"><button type="button" class="btn btn-outline-secondary"><i class="icofont-edit text-success"></i>Edit Project</button></a>
+                                                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteproject-{{$planningProject->project_id}}"><i class="icofont-ui-delete text-danger"></i></button>
                                                             @endif
-                                                            {{-- <a href="{{route('user.task.create', ['project_id' => $project->project_id]) }}"><button type="button" class="btn btn-outline-secondary"><i class="icofont-plus-circle me-2 fs-6"></i>Add Task</button></a> --}}
-                                                        <br>
-                                                        @if(Auth::user()->view_right !== 3)
-                                                            <a href="{{route('user.project.edit', ['id' => $planningProject->project_id]) }}"><button type="button" class="btn btn-outline-secondary"><i class="icofont-edit text-success"></i>Edit Project</button></a>
-                                                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteproject-{{$planningProject->project_id}}"><i class="icofont-ui-delete text-danger"></i></button>
-                                                        @endif
                                                         </div>
+                                                    </div>
+                                                    <div class="row g-2 pt-4">
+                                                        <a href="{{route('user.project.detail', ['id' => $planningProject->project_id]) }}"><button type="button" class="btn btn-outline-secondary"><i class="icofont-file-document text-success"></i>Project Detail</button></a>
                                                     </div>
                                                     <div class="row g-2 pt-4">
                                                         <div class="col-6">
@@ -338,53 +327,96 @@
                                     </div>
                                 </div>
                                 @endif
-                                @if (isset($ongoingProjects))
                                 <div class="tab-pane fade" id="Ongoing-list">
-                                    <div class="row g-3 gy-5 py-3 row-deck">
-                                        @foreach ($ongoingProjects as $ongoingProject)
-                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="d-flex align-items-center justify-content-between mt-5">
-                                                        <div class="lesson_name">
-                                                            <div class="project-block bg-lightgreen">
-                                                                <i class="icofont-vector-path"></i>
+                                    @if (isset($implementProjects))
+                                        <div class="row g-3 gy-5 py-3 row-deck">
+                                            @foreach ($implementProjects as $implementProject)
+                                            <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center justify-content-between mt-5">
+                                                            <div class="lesson_name">
+                                                                <div class="project-block bg-lightgreen">
+                                                                    <i class="icofont-vector-path"></i>
+                                                                </div>
+                                                                <h6 class="mb-0 fw-bold  fs-6  mb-2">{{$implementProject->project_title}}</h6>
                                                             </div>
-                                                            <h6 class="mb-0 fw-bold  fs-6  mb-2">{{$ongoingProject->project_title}}</h6>
-                                                        </div>
-                                                        <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                                            @if (Auth::user()->view_right !== 3)
-                                                            <button type="button" class="btn btn-dark btn-set-task w-sm-100" data-bs-toggle="modal" data-bs-target="#taskcreate-{{$ongoingProject->project_id}}"><i class="icofont-plus-circle me-2 fs-6"></i>Add Task</button>
-                                                            @endif
-                                                            {{-- <a href="{{route('user.task.create', ['project_id' => $project->project_id]) }}"><button type="button" class="btn btn-outline-secondary"><i class="icofont-plus-circle me-2 fs-6"></i>Add Task</button></a> --}}
-                                                        <br>
-                                                        @if(Auth::user()->view_right !== 3)
-                                                            <a href="{{route('user.project.edit', ['id' => $ongoingProject->project_id]) }}"><button type="button" class="btn btn-outline-secondary"><i class="icofont-edit text-success"></i>Edit Project</button></a>
-                                                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteproject-{{$ongoingProject->project_id}}"><i class="icofont-ui-delete text-danger"></i></button>
-                                                        @endif
-                                                        </div>
-                                                    </div>
-                                                    <div class="row g-2 pt-4">
-                                                        <div class="col-6">
-                                                            <div class="d-flex align-items-center">
-                                                                <i class="icofont-sand-clock">Start</i>
-                                                                <span class="ms-2">{{$ongoingProject->project_start_date}}</span>
+                                                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                                @if (Auth::user()->view_right !== 3)
+                                                                    <button type="button" class="btn btn-dark btn-set-task w-sm-100" data-bs-toggle="modal" data-bs-target="#taskcreate-{{$implementProject->project_id}}"><i class="icofont-plus-circle me-2 fs-6"></i>Add Task</button>
+                                                                    <a href="{{route('user.project.edit', ['id' => $implementProject->project_id]) }}"><button type="button" class="btn btn-outline-secondary"><i class="icofont-edit text-success"></i>Edit Project</button></a>
+                                                                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteproject-{{$implementProject->project_id}}"><i class="icofont-ui-delete text-danger"></i></button>
+                                                                @endif
                                                             </div>
                                                         </div>
-                                                        <div class="col-6">
-                                                            <div class="d-flex align-items-center">
-                                                                <i class="icofont-sand-clock">End</i>
-                                                                <span class="ms-2">{{$ongoingProject->project_end_date}}</span>
+                                                        <div class="row g-2 pt-4">
+                                                            <a href="{{route('user.project.detail', ['id' => $implementProject->project_id]) }}"><button type="button" class="btn btn-outline-secondary"><i class="icofont-file-document text-success"></i>Project Detail</button></a>
+                                                        </div>
+                                                        <div class="row g-2 pt-4">
+                                                            <div class="col-6">
+                                                                <div class="d-flex align-items-center">
+                                                                    <i class="icofont-sand-clock">Start</i>
+                                                                    <span class="ms-2">{{$implementProject->project_start_date}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="d-flex align-items-center">
+                                                                    <i class="icofont-sand-clock">End</i>
+                                                                    <span class="ms-2">{{$implementProject->project_end_date}}</span>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            @endforeach
                                         </div>
-                                        @endforeach
-                                    </div>
+                                    @endif
+                                    @if (isset($testingProjects))
+                                        <div class="row g-3 gy-5 py-3 row-deck">
+                                            @foreach ($testingProjects as $testingProject)
+                                            <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center justify-content-between mt-5">
+                                                            <div class="lesson_name">
+                                                                <div class="project-block bg-lightgreen">
+                                                                    <i class="icofont-vector-path"></i>
+                                                                </div>
+                                                                <h6 class="mb-0 fw-bold  fs-6  mb-2">{{$testingProject->project_title}}</h6>
+                                                            </div>
+                                                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                                @if (Auth::user()->view_right !== 3)
+                                                                    <button type="button" class="btn btn-dark btn-set-task w-sm-100" data-bs-toggle="modal" data-bs-target="#taskcreate-{{$testingProject->project_id}}"><i class="icofont-plus-circle me-2 fs-6"></i>Add Task</button>
+                                                                    <a href="{{route('user.project.edit', ['id' => $testingProject->project_id]) }}"><button type="button" class="btn btn-outline-secondary"><i class="icofont-edit text-success"></i>Edit Project</button></a>
+                                                                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteproject-{{$testingProject->project_id}}"><i class="icofont-ui-delete text-danger"></i></button>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                        <div class="row g-2 pt-4">
+                                                            <a href="{{route('user.project.detail', ['id' => $testingProject->project_id]) }}"><button type="button" class="btn btn-outline-secondary"><i class="icofont-file-document text-success"></i>Project Detail</button></a>
+                                                        </div>
+                                                        <div class="row g-2 pt-4">
+                                                            <div class="col-6">
+                                                                <div class="d-flex align-items-center">
+                                                                    <i class="icofont-sand-clock">Start</i>
+                                                                    <span class="ms-2">{{$testingProject->project_start_date}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="d-flex align-items-center">
+                                                                    <i class="icofont-sand-clock">End</i>
+                                                                    <span class="ms-2">{{$testingProject->project_end_date}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                    @endif
                                 </div>
-                                @endif
                                 @if (isset($finalizedProjects))
                                 <div class="tab-pane fade" id="Finalized-list">
                                     <div class="row g-3 gy-5 py-3 row-deck">
@@ -509,8 +541,10 @@
                             <div class="col-sm">
                                 <label for="formFileMultipleone" class="form-label">Assignee</label>
                                 <select class="form-select assignee-select" name="assignee">
-                                    @foreach ($employees as $employee)
-                                        <option value={{$employee->id}}>{{$employee->fullname}}</option>
+                                    @foreach ($projectAssignee as $assignee)
+                                        @if($assignee->project_id == $targetproject->project_id)
+                                            <option value={{$assignee->employee_id}}>{{$assignee->fullname}}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -577,9 +611,11 @@
                             </div>
                             <div class="col-sm">
                                 <label for="formFileMultipleone" class="form-label">Assignee</label>
-                                <select class="form-select" name="assignee">
-                                    @foreach ($employees as $employee)
-                                        <option value={{$employee->id}} {{ $task->assignee == $employee->id ? 'selected' : '' }}>{{$employee->fullname}}</option>
+                                <select class="form-select assignee-select" name="assignee">
+                                    @foreach ($projectAssignee as $assignee)
+                                        @if($assignee->project_id == $targetproject->project_id)
+                                            <option value={{$assignee->employee_id}}>{{$assignee->fullname}}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>

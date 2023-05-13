@@ -16,15 +16,15 @@ class UserSeeder extends Seeder
     {
         {
             $data = [];
-            for ($i=1; $i<5; $i++){
+            for ($i=1; $i<3; $i++){
                 $data[] = [
                     'email' => 'test'. $i .'@gmail.com',
                     'password' => bcrypt('12345678'),
                     'fullname' => 'Admin'. $i . 'Green',
                     'entry_date' => '2023/05/03',
                     'department' => rand(1,2),
-                    'role' => rand(1,2),
-                    'view_right' => rand(1,2,3),
+                    'role' => rand(1),
+                    'view_right' => rand(1),
                 ];
             }
             DB::table('employees')->insert($data);

@@ -1,22 +1,19 @@
 @extends('master')
-<!doctype html>
-<html class="no-js" lang="en" dir="ltr">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>:: My-Task :: Departments List </title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
-    <!-- plugin css file  -->
-    <link rel="stylesheet" href="{{asset('theme/dist/assets/plugin/datatables/responsive.dataTables.min.css')}}">
-    <link rel="stylesheet" href="{{asset('theme/dist/assets/plugin/datatables/dataTables.bootstrap5.min.css')}}">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>:: My-Task:: Password Change</title>
     <!-- project css file  -->
     <link rel="stylesheet" href="{{asset('theme/dist/assets/css/my-task.style.min.css')}}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 <body>
-
-    @section('department-index')
+    @section('password-change')
     <div id="mytask-layout" class="theme-indigo">
         <!-- Side bar -->
         <div class="sidebar px-4 py-4 py-md-5 me-0">
@@ -46,22 +43,22 @@
                         </ul>
                     </li>
                     <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#emp-Components" href="theme/dist/#"><i
+                        <a class="m-link active" data-bs-toggle="collapse" data-bs-target="#emp-Components" href="theme/dist/#"><i
                                 class="icofont-users-alt-5"></i> <span>Employees</span></a>
                         <!-- Menu: Sub menu ul -->
                         <ul class="sub-menu collapse show" id="emp-Components">
-                            <li><a class="ms-link" href="{{route('admin.employee.index')}}"> <span>Members</span></a></li>
+                            <li><a class="ms-link active" href="{{route('admin.employee.index')}}"> <span>Members</span></a></li>
                         </ul>
                     </li>
                     <li class="collapsed">
-                        <a class="m-link active" data-bs-toggle="collapse" data-bs-target="#extra-Components" href="#">
+                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#extra-Components" href="#">
                             <i class="icofont-code-alt"></i> <span>Admin Pages</span></a>
                         <!-- Menu: Sub menu ul -->
                         <ul class="sub-menu collapse show" id="extra-Components">
                             <li><a class="ms-link" href="{{route('admin.project-category.index')}}"> <span>Project Category</span></a></li>
                             <li><a class="ms-link" href="{{route('admin.skill.index')}}"> <span>Skills</span></a></li>
                             <li><a class="ms-link" href="{{route('admin.role.index')}}"><span>Roles</span></a></li>
-                            <li><a class="ms-link active" href="{{route('admin.department.index')}}"><span>Departments</span></a></li>
+                            <li><a class="ms-link" href="{{route('admin.department.index')}}"><span>Departments</span></a></li>
                         </ul>
                     </li>
                 </ul>
@@ -74,7 +71,7 @@
                 </a>
             </div>
         </div>
-        <div class="main px-lg-4 px-md-4">
+        <div class="main px-lg-4 px-md-4 mt-4">
             <!-- Body: Header -->
             <div class="header">
                 <nav class="navbar py-4">
@@ -119,112 +116,36 @@
                     </div>
                 </nav>
             </div>
-            <div class="container-xxl">
-                <div class="row align-items-center">
-                    <div class="border-0 mb-4">
-                        <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                            <h3 class="fw-bold mb-0">Departments List</h3>
-                            <div class="col-auto d-flex w-sm-100">
-                                <a href="{{route('admin.department.create')}}">
-                                    <button type="button" class="btn btn-dark btn-set-task w-sm-100"><i class="icofont-plus-circle me-2 fs-6"></i>Add Department</button>
-                                </a>
-                                </div>
-                        </div>
-                    </div>
-                </div> <!-- Row end  -->
-                <div class="row clearfix g-3">
-                <div class="col-sm-12">
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <table id="departmentTable" class="table table-hover align-middle mb-0" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Department Name</th>
-                                            <th>Detail</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($departments as $department)
-                                        <tr>
-                                            <td>
-                                                <a href="#" class="fw-bold text-secondary">{{ $loop->iteration }}</a>
-                                            </td>
-                                        <td>
-                                            <span class="fw-bold ms-1">{{$department->department_name}}</span>
-                                        </td>
-                                        <td>
-                                                <p>{{$department->department_detail}}</p>
-                                        </td>                                  
-                                        <td>
-                                                <p>{{$department->status == 1 ? 'Active' : 'Deactived'}}</p>
-                                        </td>
-                                            <td>
-                                                <a href="{{route('admin.department.edit',['id' => $department->department_id])}}">
-                                                <button type="button" class="btn btn-dark btn-set-task w-sm-100">
-                                                <i class="icofont-edit me-2 fs-6"></i>Edit</button></a>
-                                                <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                                    <button type="button" class="btn btn-outline-secondary deleterow"
-                                                    data-bs-toggle="modal" 
-                                                    data-bs-target="#removedepartment-{{$department->department_id}}"><i class="icofont-close-circled text-danger"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr> 
-                                        @endforeach
-                                    </tbody>
-                                </table>
+            <!-- Create Employee-->
+            <div class="body d-flex py-lg-3 py-md-2">
+                <h5 class="modal-title  fw-bold" id="createprojectlLabel"> Change Password</h5>
+                <div class="modal-body">
+                    <form action="{{route('admin.employee.storeNewPassword',['id' => $employee->id])}}" method="POST">
+                        @csrf
+                        <div class="row g-3 mb-3">
+                            <div class="col-sm-6">
+                                <label class="form-label">Employee Id</label>
+                                <input type="text" class="form-control" id="employee_id" name="employee_id" readonly value={{$employee->id}}>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Employee email</label>
+                                <input type="text" class="form-control" id="employee_name" name="employee_name" readonly value={{$employee->fullname}}>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Password</label>
+                                <input type="Password" class="form-control" id="password" name="password" placeholder="Input employee password">
                             </div>
                         </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-sm-6">
+                                <button type="submit" class="btn btn-secondary mt-1 mb-3">Change Password</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                </div><!-- Row End -->
             </div>
         </div>
     </div>
-
-    <!-- Modal  Remove Department-->
-    @foreach ($departments as $department)
-    <div class="modal fade" id="removedepartment-{{$department->department_id}}" tabindex="-1"  aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title  fw-bold" id="dremovetaskLabel"> Remove Department</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body justify-content-center flex-column d-flex">
-                <i class="icofont-ui-rate-remove text-danger display-2 text-center mt-2"></i>
-                <p class="mt-4 fs-5 text-center">Do you want to remove
-                <strong>"{{$department->department_name}}"</strong> from Department List?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <a href="{{route('admin.department.destroy',['id' => $department->department_id])}}">
-                    <button type="button" class="btn btn-danger color-fff">Remove</button>                        
-                </a>
-            </div>
-        </div>
-        </div>
-    </div>
-    @endforeach
     @endsection
-
-    <!-- Jquery Core Js -->
-    <script src="{{asset('theme/dist/assets/bundles/libscripts.bundle.js')}}"></script>
-        
-    <!-- Plugin Js-->
-    <script src="{{asset('theme/dist/assets/bundles/dataTables.bundle.js')}}"></script>
-    <script>
-        $(document).ready(function() {
-           $('#departmentTable')
-           .addClass( 'nowrap' )
-           .dataTable( {
-               responsive: true,
-               columnDefs: [
-                   { targets: [-1, -3], className: 'dt-body-right' }
-               ]
-           });
-       });
-    </script>
 </body>
 </html>

@@ -12,6 +12,7 @@ class UserEmployeeController extends Controller
         $employees = DB::table('employees')
         ->join('departments', 'departments.department_id', '=', 'employees.department')
         ->join('roles', 'roles.role_id', '=', 'employees.role')
+        ->where('employees.view_right','<>',1)
         ->select('employees.*','departments.department_name','roles.role_name')
         ->get();
 

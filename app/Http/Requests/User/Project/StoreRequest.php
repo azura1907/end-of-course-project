@@ -29,7 +29,7 @@ class StoreRequest extends FormRequest
             'project_estimated_cost' => 'required',
             'project_lead' => 'required',
             'project_category' => 'required',
-            'project_department' => 'required'
+            'department' => 'required'
         ];
     }
 
@@ -46,7 +46,7 @@ class StoreRequest extends FormRequest
             'project_estimated_cost' => 'Please input Project Cost',
             'project_lead' => 'Please select Project Lead',
             'project_category' => 'Please select Project Category',
-            'project_department' => 'Please select Project Department'
+            'department' => 'Please select Project Department'
         ];
     }
 }

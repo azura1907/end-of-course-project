@@ -16,23 +16,29 @@ class ProjectController extends Controller
         ->join('project_assignee','projects.project_id', '=', 'project_assignee.project_id')
         ->where('project_assignee.employee_id', Auth::user()->id)->select('projects.*')->groupBy('projects.project_id')->get();
 
+        $projectAssignee = DB::table('project_assignee')
+        ->join('employees','project_assignee.employee_id', '=', 'employees.id')
+        ->select('employees.fullname', 'project_assignee.*')->get();
+
         $planningProjects = DB::table('projects')
         ->join('project_assignee','projects.project_id', '=', 'project_assignee.project_id')
         ->where('projects.project_phase', 1)
         ->where('project_assignee.employee_id', Auth::user()->id)->select('projects.*')->groupBy('projects.project_id')->get();
 
-        $ongoingProjects = DB::table('projects')
+        $implementProjects = DB::table('projects')
         ->join('project_assignee','projects.project_id', '=', 'project_assignee.project_id')
         ->where('projects.project_phase', 2)
-        ->orWhere('projects.project_phase',3)
+        ->where('project_assignee.employee_id', Auth::user()->id)->select('projects.*')->groupBy('projects.project_id')->get();
+
+        $testingProjects = DB::table('projects')
+        ->join('project_assignee','projects.project_id', '=', 'project_assignee.project_id')
+        ->Where('projects.project_phase',3)
         ->where('project_assignee.employee_id', Auth::user()->id)->select('projects.*')->groupBy('projects.project_id')->get();
 
         $finalizedProjects = DB::table('projects')
         ->join('project_assignee','projects.project_id', '=', 'project_assignee.project_id')
         ->where('projects.project_phase',4)
         ->where('project_assignee.employee_id', Auth::user()->id)->select('projects.*')->groupBy('projects.project_id')->get();
-        
-        // dd($ongoingProjects);
         
         $tasks = DB::table('tasks')
         ->join('projects', 'tasks.project_id', '=', 'projects.project_id')
@@ -46,10 +52,12 @@ class ProjectController extends Controller
         [
             'projects' => $projects,
             'planningProjects' => $planningProjects,
-            'ongoingProjects' => $ongoingProjects,
+            'implementProjects' => $implementProjects,
+            'testingProjects' => $testingProjects,
             'finalizedProjects' => $finalizedProjects,
             'tasks' => $tasks,
-            'employees' => $employees
+            'employees' => $employees,
+            'projectAssignee' => $projectAssignee
         ]);
     }
 
@@ -105,12 +113,14 @@ class ProjectController extends Controller
         $departments = DB::table('departments')->orderBy('created_at', 'DESC')->get();
         $project_categories = DB::table('project_categories')->orderBy('created_at', 'DESC')->get();
         $employees = DB::table('employees')->orderBy('created_at', 'DESC')->get();
+        $leaders = DB::table('employees')->where('employees.view_right',2)->get();
         return view('user.project.create', [
             'roles' => $roles,
             'skills' => $skills,
             'project_categories' => $project_categories,
             'employees' => $employees,
-            'departments' => $departments
+            'departments' => $departments,
+            'leaders' => $leaders
         ]);
     }
 
@@ -266,6 +276,10 @@ class ProjectController extends Controller
     public function destroy($id = '')
     {
         DB::table('projects')->where('project_id', $id)->delete();
+        DB::table('project_assignee')->where('project_id', $id)->delete();
+        DB::table('project_skills')->where('project_id', $id)->delete();
+        DB::table('project_roles')->where('project_id', $id)->delete();
+        DB::table('tasks')->where('project_id', $id)->delete();
 
         return redirect()->route('user.project.index')->with('success', 'Project was successfully deleted');
     }

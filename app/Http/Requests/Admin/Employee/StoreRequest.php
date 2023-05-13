@@ -37,6 +37,8 @@ class StoreRequest extends FormRequest
             'email.unique' => 'This email is already exists',
             'email.email' => 'Wrong email format. Please check and input again.',
             'password.required' => 'Please input password',
+            'fullname.required' => 'Please input employee fullname',
+            'skills.required' => 'Please select employee skills',
         ];
     }
 }

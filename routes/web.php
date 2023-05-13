@@ -34,7 +34,7 @@ Route::get('unauthorized', [ErrorController::class, 'unauthorized'])->name('unau
 
 Route::get('send-mail', [SendMailController::class, 'send'])->name('send');
 
-Route::prefix('dashboard')->name('dashboard.')->middleware(['checkLogin'])->group(function() {
+Route::prefix('dashboard')->name('dashboard.')->group(function() {
     Route::get('project', [DashboardController::class, 'project'])->name('project');
 });
 
@@ -92,6 +92,8 @@ Route::prefix('auth')->name('auth.')->group(function () {
             Route::get('info-edit/{id}', 'infoEdit')->name('infoEdit');
             Route::post('updateDetailInfo/{id}', 'updateDetailInfo')->name('updateDetailInfo');
             Route::post('update/{id}','update')->name('update');
+            Route::get('updatePw/{id}','updatePw')->name('updatePw');
+            Route::post('storeNewPassword/{id}','storeNewPassword')->name('storeNewPassword');
             Route::get('destroy/{id}', 'destroy')->name('destroy');
         });
     });
@@ -116,7 +118,6 @@ Route::prefix('auth')->name('auth.')->group(function () {
             Route::get('index', 'index')->name('index');
             Route::get('create/{project_id}','create')->middleware('checkRole')->name('create');
             Route::post('store','store')->middleware('checkRole')->name('store');
-            Route::get('detail/{id}', 'detail')->name('detail');
             Route::get('edit/{id}', 'edit')->name('edit');
             Route::post('update/{id}','update')->name('update');
             Route::get('destroy/{id}', 'destroy')->middleware('checkRole')->name('destroy');
