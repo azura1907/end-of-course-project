@@ -90,8 +90,7 @@
                     <div class="container-xxl">
                         <!-- header rightbar icon -->
                         <div class="h-right d-flex align-items-center mr-5 mr-lg-0 order-1">
-                            <div class="dropdown user-profile ml-2 ml-sm-3 d-flex align-items-center zindex-popover">
-                                <div>
+                            <div class="dropdown user-profile ml-2 ml-sm-3 d-block align-items-center zindex-popover">
                                     <p class="mb-0 text-end line-height-sm "><span class="font-weight-bold">{{Auth::user()->email}}</span></p>
                                     @if(Auth::user()->view_right == 1)
                                         <p class="mb-0 text-end line-height-sm "><span class="font-weight-bold">Admin</span></p>
@@ -99,12 +98,9 @@
                                     @if(Auth::user()->view_right !== 1)
                                         <p class="mb-0 text-end line-height-sm "><span class="font-weight-bold">Employee</span></p>
                                     @endif
-                                </div>
-                                <div>
                                     <a class="nav-link dropdown-toggle pulse p-0" role="button" data-bs-toggle="dropdown" data-bs-display="static">
                                         <img class="avatar lg rounded-circle img-thumbnail" src="{{asset('theme/dist/assets/images/profile_av.png')}}" alt="profile">
                                     </a>
-                                </div>
                                 <div class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-end p-0 m-0">
                                     <div class="card border-0 w280">
                                         <div class="card-body pb-0">
