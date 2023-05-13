@@ -198,7 +198,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <a href="{{route('admin.skill.destroy',['id' => $project_category->category_id])}}">
+                <a href="{{route('admin.project-category.destroy',['id' => $project_category->category_id])}}">
                     <button type="button" class="btn btn-danger color-fff">Remove</button>                        
                 </a>
             </div>

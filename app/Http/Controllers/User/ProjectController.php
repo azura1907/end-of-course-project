@@ -47,7 +47,7 @@ class ProjectController extends Controller
 
         $employees = DB::table('employees')
         ->orderBy('created_at', 'DESC')->get();
-        // dd($projects);
+        // dd($finalizedProjects);
         return view('user.project.index', 
         [
             'projects' => $projects,
@@ -131,6 +131,7 @@ class ProjectController extends Controller
         $assignedEmployees = $request->only('employees_id');
         $rolesData = $request->only('required_roles');
         $projectTitle = $request->only('project_title');
+        $projectLead = $request->only('project_lead');
         // dd($data);
         // $data['user_id'] = 1;
 
@@ -158,6 +159,9 @@ class ProjectController extends Controller
                     DB::table('project_assignee')->insert($insertData);
                 }
         }
+
+        //insert project assignee info (project lead)
+        DB::table('project_assignee')->insert($projectLead);
 
         //insert project roles info
         foreach($rolesData as $roleData){
@@ -231,6 +235,9 @@ class ProjectController extends Controller
         $skillsData = $request->only('required_skills');
         $assignedEmployees = $request->only('employees_id');
         $rolesData = $request->only('required_roles');
+        $projectLead = $request->only('project_lead');
+        $projectLeadData['employee_id'] = $projectLead['project_lead'];
+        $projectLeadData['project_id'] = $projectId['project_id'];
 
         DB::table('projects')->where('project_id', $projectId)->update($data);
         
@@ -257,6 +264,9 @@ class ProjectController extends Controller
                     DB::table('project_assignee')->insert($insertData);
                 }
         }
+
+        //insert project assignee info (project lead)
+        DB::table('project_assignee')->insert($projectLeadData);
 
         //update project roles info
         DB::table('project_roles')->where('project_id',$projectId)->delete();

@@ -116,9 +116,15 @@
                     </div>
                 </nav>
             </div>
-            <!-- Create Employee-->
+            <!-- Edit Employee-->
+            <div class="row g-3 mb-3 row-deck">
+                <div class="border-0 mb-4">
+                    <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
+                        <h3 class="fw-bold mb-0">Edit Employee Info</h3>
+                    </div>
+                </div>
+            </div>
             <div class="body d-flex py-lg-3 py-md-2">
-                <h5 class="modal-title  fw-bold" id="createprojectlLabel"> Edit Employee</h5>
                 <div class="modal-body">
                     <form action="{{ route('admin.employee.update',['id' => $employee->id]) }}" method="POST">
                         @csrf

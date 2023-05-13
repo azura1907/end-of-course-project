@@ -116,9 +116,14 @@
                     </div>
                 </nav>
             </div>
-            <!-- Create Employee-->
+            <div class="row g-3 mb-3 row-deck">
+                <div class="border-0 mb-4">
+                    <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
+                        <h3 class="fw-bold mb-0">Change password</h3>
+                    </div>
+                </div>
+            </div>
             <div class="body d-flex py-lg-3 py-md-2">
-                <h5 class="modal-title  fw-bold" id="createprojectlLabel"> Change Password</h5>
                 <div class="modal-body">
                     <form action="{{route('admin.employee.storeNewPassword',['id' => $employee->id])}}" method="POST">
                         @csrf
@@ -128,7 +133,7 @@
                                 <input type="text" class="form-control" id="employee_id" name="employee_id" readonly value={{$employee->id}}>
                             </div>
                             <div class="col-sm-6">
-                                <label class="form-label">Employee email</label>
+                                <label class="form-label">Employee name</label>
                                 <input type="text" class="form-control" id="employee_name" name="employee_name" readonly value={{$employee->fullname}}>
                             </div>
                             <div class="col-sm-6">
