@@ -37,7 +37,7 @@ class ProjectController extends Controller
         $tasks = DB::table('tasks')
         ->join('projects', 'tasks.project_id', '=', 'projects.project_id')
         ->join('employees','tasks.assignee', '=', 'employees.id')
-        ->where('tasks.assignee', Auth::user()->id)->get();
+        ->where('tasks.assignee', Auth::user()->id)->orWhere('tasks.assigned_by', Auth::user()->id)->get();
 
         $employees = DB::table('employees')
         ->orderBy('created_at', 'DESC')->get();

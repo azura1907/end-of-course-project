@@ -37,7 +37,6 @@
                         <!-- Menu: Sub menu ul -->
                         <ul class="sub-menu show" id="project-Components">
                             <li><a class="ms-link" href="{{route('user.project.index')}}"><span>Projects</span></a></li>
-                            <li><a class="ms-link" href="theme/dist/team-leader.html"><span>Leaders</span></a></li>
                         </ul>
                     </li>
                     <li class="collapsed">

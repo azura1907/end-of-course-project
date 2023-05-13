@@ -47,19 +47,20 @@
                             <li><a class="ms-link" href="{{route('admin.employee.index')}}"> <span>Members</span></a></li>
                         </ul>
                     </li>
-                    <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#extra-Components" href="#">
-                            <i class="icofont-code-alt"></i> <span>Admin Pages</span></a>
-                        <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse show" id="extra-Components">
-                            <li><a class="ms-link" href="{{route('admin.project-category.index')}}"> <span>Project Category</span></a></li>
-                            <li><a class="ms-link" href="{{route('admin.skill.index')}}"> <span>Skills</span></a></li>
-                            <li><a class="ms-link" href="{{route('admin.role.index')}}"><span>Roles</span></a></li>
-                            <li><a class="ms-link" href="{{route('admin.department.index')}}"><span>Departments</span></a></li>
-                        </ul>
-                    </li>
+                    @if (Auth::user()->view_right == 1)
+                        <li class="collapsed">
+                            <a class="m-link" data-bs-toggle="collapse" data-bs-target="#extra-Components" href="#">
+                                <i class="icofont-code-alt"></i> <span>Admin Pages</span></a>
+                            <!-- Menu: Sub menu ul -->
+                            <ul class="sub-menu collapse show" id="extra-Components">
+                                <li><a class="ms-link" href="{{route('admin.project-category.index')}}"> <span>Project Category</span></a></li>
+                                <li><a class="ms-link" href="{{route('admin.skill.index')}}"> <span>Skills</span></a></li>
+                                <li><a class="ms-link" href="{{route('admin.role.index')}}"><span>Roles</span></a></li>
+                                <li><a class="ms-link" href="{{route('admin.department.index')}}"><span>Departments</span></a></li>
+                            </ul>
+                        </li>  
+                    @endif
                 </ul>
-
                 <!-- Menu: menu collepce btn -->
                 <a href="{{route('auth.logout')}}">
                     <button type="button" class="btn btn-link sidebar-mini-btn text-light">

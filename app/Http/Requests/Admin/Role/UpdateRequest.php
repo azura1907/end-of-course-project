@@ -24,7 +24,7 @@ class UpdateRequest extends FormRequest
         return [
             'role_name' => 'required',
             'status' => 'required:roles,status',
-            'view_rights' => 'required:role,view_rights'
+            'view_right' => 'required:role,view_rights'
         ];
     }
 
@@ -33,7 +33,7 @@ class UpdateRequest extends FormRequest
         return [
             'role_name.required' => 'Please input role name',
             'status.required' => 'Please choose role status',
-            'view_rights.required' => 'Please choose role view rights'
+            'view_right.required' => 'Please choose role view rights'
         ];
     }
 }

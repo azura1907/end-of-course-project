@@ -477,12 +477,12 @@
                     @csrf
                         <div class="modal-body">
                             <div class="mb-3">
+                                <label  class="form-label">Project Id</label>
+                                <input type="text" name="project_id" id="project_id" class="form-control" value="{{$targetproject->project_id}}" readonly>
+                            </div>
+                            <div class="mb-3">
                                 <label  class="form-label">Project Name</label>
-                                <select class="form-select" name="project_id">
-                                    @foreach ($projects as $project)
-                                        <option value={{$project->project_id}} {{$project->project_id == $targetproject->project_id ? 'selected' : ''}}>{{$project->project_title}}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" class="form-control" value="{{$targetproject->project_title}}" readonly>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Task Name</label>

@@ -40,7 +40,6 @@
                         <!-- Menu: Sub menu ul -->
                         <ul class="sub-menu show" id="project-Components">
                             <li><a class="ms-link" href="{{route('user.project.index')}}"><span>Projects</span></a></li>
-                            <li><a class="ms-link" href="theme/dist/team-leader.html"><span>Leaders</span></a></li>
                         </ul>
                     </li>
                     <li class="collapsed">
@@ -141,10 +140,6 @@
                             <div class="col-sm-6">
                                 <label class="form-label">Employee email</label>
                                 <input type="text" class="form-control" id="email" name="email" placeholder="Input employee email" value="{{$employee->email}}" disabled>
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label">Password</label>
-                                <input type="Password" class="form-control" id="password" name="password" placeholder="Input employee password">
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label">Entry Date</label>
