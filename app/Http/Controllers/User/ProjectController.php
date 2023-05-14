@@ -47,7 +47,7 @@ class ProjectController extends Controller
 
         $employees = DB::table('employees')
         ->orderBy('created_at', 'DESC')->get();
-        // dd($finalizedProjects);
+        
         return view('user.project.index', 
         [
             'projects' => $projects,
@@ -262,7 +262,7 @@ class ProjectController extends Controller
 
         //insert project assignee info (project lead)
         DB::table('project_assignee')->insert($projectLeadData);
-        
+
         foreach($assignedEmployees as $assignedEmployee){
             for ($i=0; $i < count($assignedEmployee); $i++) 
                 {   
