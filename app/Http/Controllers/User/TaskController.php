@@ -151,9 +151,26 @@ class TaskController extends Controller
             $emaildata['new_desc'] = $data['task_description'];
         }
         if ($taskStatusDiff !== 0) {
-            $emaildata['old_status'] = $oldTaskData->task_status;
-            $emaildata['new_status'] = $data['task_status'];
+            if($oldTaskData->task_status == 1) {
+                $emaildata['old_status'] = 'New';
+            }
+            if($data['task_status'] == 1) {
+                $emaildata['new_status'] = 'New';
+            }
+            if($oldTaskData->task_status == 2) {
+                $emaildata['old_status'] = 'Doing';
+            }
+            if($data['task_status'] == 2) {
+                $emaildata['new_status'] = 'Doing';
+            }
+            if($oldTaskData->task_status == 3) {
+                $emaildata['old_status'] = 'Done';
+            }
+            if($data['task_status'] == 3) {
+                $emaildata['new_status'] = 'Done';
+            }
         }
+
         if ($taskAssigneeDiff !== 0) {
             $emaildata['old_assignee'] = $oldAssgineeFullname->fullname;
             $emaildata['new_assignee'] = $assigneeFullname->fullname;
@@ -161,13 +178,12 @@ class TaskController extends Controller
             Mail::to($oldAssgineeEmail->email)->send(new SendAssigneeUpdateNoti($emaildata));
         }
 
+        // dd($emaildata);
         if($taskAssigneeDiff == 0) {
         $emaildata['old_assignee'] = $oldAssgineeFullname->fullname;
         $emaildata['new_assignee'] = $oldAssgineeFullname->fullname;
         Mail::to($oldAssgineeEmail->email)->send(new SendTaskInfoChangeNoti($emaildata));
         }
-
-
 
         return redirect()->route('user.project.index')->with('success', 'Task successfully updated');
     }

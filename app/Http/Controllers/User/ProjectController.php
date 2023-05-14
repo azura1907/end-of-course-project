@@ -114,6 +114,7 @@ class ProjectController extends Controller
         $project_categories = DB::table('project_categories')->orderBy('created_at', 'DESC')->get();
         $employees = DB::table('employees')->orderBy('created_at', 'DESC')->get();
         $leaders = DB::table('employees')->where('employees.view_right',2)->get();
+        
         return view('user.project.create', [
             'roles' => $roles,
             'skills' => $skills,
@@ -132,11 +133,14 @@ class ProjectController extends Controller
         $rolesData = $request->only('required_roles');
         $projectTitle = $request->only('project_title');
         $projectLead = $request->only('project_lead');
+        
         // dd($data);
         // $data['user_id'] = 1;
 
         DB::table('projects')->insert($data);
         $targetProject = DB::table('projects')->where('project_title', $projectTitle)->first();
+        $projectLeadData['employee_id'] = $projectLead['project_lead'];
+        $projectLeadData['project_id'] = $targetProject->project_id;
 
         //insert project skills info
         foreach($skillsData as $skillData){
@@ -161,7 +165,7 @@ class ProjectController extends Controller
         }
 
         //insert project assignee info (project lead)
-        DB::table('project_assignee')->insert($projectLead);
+        DB::table('project_assignee')->insert($projectLeadData);
 
         //insert project roles info
         foreach($rolesData as $roleData){
@@ -255,6 +259,10 @@ class ProjectController extends Controller
 
         //update project assginees info
         DB::table('project_assignee')->where('project_id',$projectId)->delete();
+
+        //insert project assignee info (project lead)
+        DB::table('project_assignee')->insert($projectLeadData);
+        
         foreach($assignedEmployees as $assignedEmployee){
             for ($i=0; $i < count($assignedEmployee); $i++) 
                 {   
@@ -264,12 +272,11 @@ class ProjectController extends Controller
                     DB::table('project_assignee')->insert($insertData);
                 }
         }
-
-        //insert project assignee info (project lead)
-        DB::table('project_assignee')->insert($projectLeadData);
+        
 
         //update project roles info
         DB::table('project_roles')->where('project_id',$projectId)->delete();
+        
         foreach($rolesData as $roleData){
             for ($i=0; $i < count($roleData); $i++) 
                 {   

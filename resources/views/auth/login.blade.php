@@ -66,14 +66,6 @@
                                         <input type="password" name="password" class="form-control form-control-lg" placeholder="***************">
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                            Remember me
-                                        </label>
-                                    </div>
-                                </div>
                                 <div class="col-12 text-center mt-4">
                                     <button type="submit" class="btn btn-lg btn-block btn-light lift text-uppercase">Sign in</button>
                                 </div>

@@ -614,7 +614,7 @@
                                 <select class="form-select assignee-select" name="assignee">
                                     @foreach ($projectAssignee as $assignee)
                                         @if($assignee->project_id == $targetproject->project_id)
-                                            <option value={{$assignee->employee_id}}>{{$assignee->fullname}}</option>
+                                            <option value={{$assignee->employee_id}} {{$task->assignee == $assignee->employee_id ? 'selected' : ''}}>{{$assignee->fullname}}</option>
                                         @endif
                                     @endforeach
                                 </select>
