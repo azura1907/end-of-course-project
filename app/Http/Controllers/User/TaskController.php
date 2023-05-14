@@ -150,6 +150,7 @@ class TaskController extends Controller
             $emaildata['old_desc'] = $oldTaskData->task_description;
             $emaildata['new_desc'] = $data['task_description'];
         }
+
         if ($taskStatusDiff !== 0) {
             if($oldTaskData->task_status == 1) {
                 $emaildata['old_status'] = 'New';
@@ -170,15 +171,15 @@ class TaskController extends Controller
                 $emaildata['new_status'] = 'Done';
             }
         }
-
+        // dd($taskAssigneeDiff);
         if ($taskAssigneeDiff !== 0) {
             $emaildata['old_assignee'] = $oldAssgineeFullname->fullname;
             $emaildata['new_assignee'] = $assigneeFullname->fullname;
+            // dd($emaildata);
             Mail::to($assigneeEmail)->send(new SendTaskNoti($emaildata));
             Mail::to($oldAssgineeEmail->email)->send(new SendAssigneeUpdateNoti($emaildata));
         }
-
-        // dd($emaildata);
+        
         if($taskAssigneeDiff == 0) {
         $emaildata['old_assignee'] = $oldAssgineeFullname->fullname;
         $emaildata['new_assignee'] = $oldAssgineeFullname->fullname;
